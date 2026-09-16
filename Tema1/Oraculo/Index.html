@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>El oráculo de los números</title>
+  <script src="app.js" defer></script>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #1e1b4b, #4c1d95);
+      color: #f5f3ff;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .caja {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(6px);
+      max-width: 360px;
+    }
+
+    input {
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      width: 100px;
+      text-align: center;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      background: #a855f7;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #9333ea;
+    }
+
+    button:disabled {
+      background: #6b7280;
+      cursor: not-allowed;
+    }
+
+    #mensaje {
+      margin-top: 1.2rem;
+      font-size: 1.1rem;
+      min-height: 1.4rem;
+    }
+
+    #marcador {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="caja">
+    <h1>🔮 El oráculo de los números</h1>
+    <p>Estoy pensando un número del 1 al 100...</p>
+
+    <input type="number" id="entrada" min="1" max="100">
+    <button id="boton">Consultar al oráculo</button>
+
+    <p id="mensaje"></p>
+    <p id="marcador"></p>
+  </div>
+</body>
+</html>
