@@ -1,19 +1,25 @@
 :root {
-  --bg-color: #f0f4f8;
+  --bg-color: #f1f5f9;
   --card-bg: #ffffff;
-  --card-back: #2563eb;
-  --text-main: #1e293b;
-  --accent: #0284c7;
-  --border: #cbd5e1;
+  --card-back: #3b82f6;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --accent: #2563eb;
+  --accent-gradient: linear-gradient(135deg, #2563eb, #7c3aed);
+  --border: #e2e8f0;
+  --glow: rgba(37, 99, 235, 0.15);
 }
 
 body.dark-mode {
-  --bg-color: #0f172a;
-  --card-bg: #1e293b;
-  --card-back: #38bdf8;
+  --bg-color: #090d16;
+  --card-bg: #131b2e;
+  --card-back: #0284c7;
   --text-main: #f8fafc;
+  --text-muted: #94a3b8;
   --accent: #38bdf8;
-  --border: #334155;
+  --accent-gradient: linear-gradient(135deg, #38bdf8, #a855f7);
+  --border: #1e293b;
+  --glow: rgba(56, 189, 248, 0.25);
 }
 
 * {
@@ -31,106 +37,190 @@ body {
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 16px;
 }
 
+/* --- Contenedor Principal estilo Pantalla / Dispositivo --- */
 .game-container {
   width: 100%;
   max-width: 520px;
-  padding: 20px;
+  padding: 28px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  /* Detalle 1: Sombra con halo de luz (glow) alrededor del juego */
+  box-shadow: 0 10px 30px -10px var(--glow), 0 0 0 1px var(--glow);
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+}
+
+/* Detalle 2: Línea superior luminosa (acento) */
+.game-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: var(--accent-gradient);
+  border-radius: 0 0 4px 4px;
+}
+
+/* --- Cabecera y Título Llamativo --- */
+header {
+  text-align: center;
+}
+
+/* Badge o etiqueta decorativa */
+header::before {
+  content: "● SECURE_TERMINAL_V1";
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 6px;
+  opacity: 0.85;
 }
 
 header h1 {
-  font-size: 1.8rem;
-  color: var(--accent);
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  /* El truco del degradado en el texto: */
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* --- Panel de Estadísticas --- */
 .stats-panel {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--card-bg);
-  padding: 12px 16px;
-  border-radius: 8px;
+  background: var(--bg-color);
+  padding: 12px 18px;
+  border-radius: 10px;
   border: 1px solid var(--border);
 }
 
-.value {
-  font-weight: 700;
-  font-size: 1.1rem;
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.value {
+  font-weight: 800;
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums; /* Evita que baile el ancho al cambiar números */
+}
+
+/* --- Botón Reiniciar --- */
 .btn {
-  background-color: var(--accent);
-  color: #fff;
+  background: var(--accent-gradient);
+  color: #ffffff;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
 .btn:hover {
-  opacity: 0.9;
+  transform: translateY(-1px);
+  opacity: 0.95;
 }
 
+.btn:active {
+  transform: translateY(0);
+}
+
+/* --- Cuadrícula del Tablero --- */
 .board-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  perspective: 1000px;
 }
 
+/* --- Cartas --- */
 .card {
   aspect-ratio: 1;
   background-color: var(--card-back);
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 2.1rem;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.2s, background-color 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .card:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
-.card.revealed, .card.matched {
-  background-color: var(--card-bg);
+.card.revealed,
+.card.matched {
+  background-color: var(--bg-color);
   border: 2px solid var(--accent);
   cursor: default;
 }
 
 .card.matched {
-  opacity: 0.6;
+  opacity: 0.55;
+  border-color: var(--border);
 }
 
+/* --- Banner Victoria --- */
 .win-banner {
-  background: var(--card-bg);
+  background: var(--bg-color);
   border: 2px solid var(--accent);
-  padding: 16px;
-  border-radius: 8px;
+  padding: 18px;
+  border-radius: 10px;
   text-align: center;
+  box-shadow: 0 0 20px var(--glow);
 }
 
 .hidden {
   display: none;
 }
 
+/* --- Footer --- */
 footer {
   text-align: center;
-  font-size: 0.85rem;
-  opacity: 0.7;
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 kbd {
   background: var(--border);
-  padding: 2px 6px;
+  color: var(--text-main);
+  padding: 2px 7px;
   border-radius: 4px;
-  font-weight: bold;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--text-muted);
 }
