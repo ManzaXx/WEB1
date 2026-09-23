@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Memory · M1</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="game-container">
+    <header>
+      <h1>Cyber Memory</h1>
+      <p class="subtitle">Encuentra los 8 pares de código</p>
+    </header>
+
+    <section class="stats-panel">
+      <div class="stat">
+        <span class="label">Intentos:</span>
+        <span id="moves-count" class="value">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Tiempo:</span>
+        <span id="timer" class="value">00:00</span>
+      </div>
+      <button id="btn-restart" class="btn">Reiniciar</button>
+    </section>
+
+    <main id="board" class="board-grid" aria-label="Tablero de juego"></main>
+
+    <div id="win-message" class="win-banner hidden">
+      <h2>¡Sistema Decodificado!</h2>
+      <p id="win-summary"></p>
+    </div>
+
+    <footer>
+      <p class="hint">Pista: pulsa <kbd>M</kbd> para activar el modo terminal oscuro</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
