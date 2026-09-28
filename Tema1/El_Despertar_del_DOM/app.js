@@ -2,14 +2,14 @@
 const ICONOS = ['⚡', '💾', '⚙️', '📡', '🔒', '🔑', '🚀', '👾'];
 
 // Estado de la aplicación
-let estado = {
-  cartas: [],
+const estado = {
   cartasSeleccionadas: [],
   parejasResueltas: 0,
   intentos: 0,
   segundos: 0,
   bloqueado: false,
-  timerRef: null
+  timerRef: null,
+  ocultarRef: null
 };
 
 // Referencias a elementos del DOM
@@ -57,6 +57,8 @@ function barajar(array) {
 // Renderizado inicial del tablero mediante DOM API
 function inicializarJuego() {
   detenerTemporizador();
+  // Si se reinicia mientras dos cartas falladas esperan para taparse, ese timeout no debe tocar la partida nueva
+  clearTimeout(estado.ocultarRef);
   estado.parejasResueltas = 0;
   estado.intentos = 0;
   estado.cartasSeleccionadas = [];
@@ -67,7 +69,6 @@ function inicializarJuego() {
   
   // Duplicar y barajar
   const mazo = barajar([...ICONOS, ...ICONOS]);
-  estado.cartas = mazo;
 
   // Limpiar tablero anterior
   boardElement.replaceChildren();
@@ -99,6 +100,7 @@ boardElement.addEventListener('click', (evento) => {
 function voltearCarta(cardNode) {
   // Mostrar icono de forma segura
   cardNode.textContent = cardNode.dataset.valor;
+  cardNode.setAttribute('aria-label', `Carta ${cardNode.dataset.valor}`);
   cardNode.classList.add('revealed');
   estado.cartasSeleccionadas.push(cardNode);
 
@@ -125,11 +127,12 @@ function evaluarJugada() {
     }
   } else {
     estado.bloqueado = true;
-    setTimeout(() => {
-      carta1.textContent = '';
-      carta2.textContent = '';
-      carta1.classList.remove('revealed');
-      carta2.classList.remove('revealed');
+    estado.ocultarRef = setTimeout(() => {
+      [carta1, carta2].forEach((carta) => {
+        carta.textContent = '';
+        carta.setAttribute('aria-label', 'Carta oculta');
+        carta.classList.remove('revealed');
+      });
       estado.cartasSeleccionadas = [];
       estado.bloqueado = false;
     }, 850);
