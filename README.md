@@ -3,7 +3,7 @@
 Repositorio de las entregas de la asignatura **Web Development I** (3.º curso).
 Autor: Pablo Manzanedo.
 
-Todos los proyectos están hechos con **HTML, CSS y JavaScript puro**, sin frameworks ni librerías. Para probar cualquiera basta con abrir su `index.html` en el navegador (o con Live Server).
+Todos los proyectos están hechos con **HTML, CSS y JavaScript puro**, sin frameworks. Los del Tema 1 se prueban abriendo su `index.html` en el navegador (o con Live Server); el del Tema 2 usa Vite como servidor de desarrollo (ver su README).
 
 ## Índice
 
@@ -11,21 +11,28 @@ Todos los proyectos están hechos con **HTML, CSS y JavaScript puro**, sin frame
 |---|---|---|---|---|
 | Tema 1 | **Cyber Memory** — Misión M1 · El Despertar del DOM | [`Tema1/El_Despertar_del_DOM/`](Tema1/El_Despertar_del_DOM/) | Juego de memoria (8 parejas) con estética de terminal: contador de intentos, cronómetro, reinicio y modo oscuro con la tecla `M`. | [README de la misión](Tema1/El_Despertar_del_DOM/README.md) |
 | Tema 1 | **El oráculo de los números** | [`Tema1/Oraculo/`](Tema1/Oraculo/) | Ejercicio de adivinar un número secreto entre 1 y 100 con pistas «mayor/menor», validación de la entrada y contador de intentos. | — |
+| Tema 2 | **Nevera vacía** — Misión M2 · Async Odyssey | [`Tema2/Async_Odyssey/`](Tema2/Async_Odyssey/) | Buscador de recetas por ingrediente con TheMealDB: `fetch` + `async/await`, módulos ES, `map/filter/reduce`, estados de carga/error/vacío y caché en `localStorage`. App Vite en JS puro. | [README de la misión](Tema2/Async_Odyssey/README.md) |
 
 ## Estructura del repositorio
 
 ```
 WEB1/
 ├── README.md                      ← este índice
-└── Tema1/
-    ├── El_Despertar_del_DOM/      ← Misión M1 (entrega principal del Tema 1)
-    │   ├── README.md              ← uso de IA, decisiones y autopsia
-    │   ├── index.html
-    │   ├── styles.css
-    │   └── app.js
-    └── Oraculo/                   ← ejercicio de práctica
-        ├── Index.html             ← incluye los estilos en <style>
-        └── app.js
+├── Tema1/
+│   ├── El_Despertar_del_DOM/      ← Misión M1 (entrega principal del Tema 1)
+│   │   ├── README.md              ← uso de IA, decisiones y autopsia
+│   │   ├── index.html
+│   │   ├── styles.css
+│   │   └── app.js
+│   └── Oraculo/                   ← ejercicio de práctica
+│       ├── Index.html             ← incluye los estilos en <style>
+│       └── app.js
+└── Tema2/
+    └── Async_Odyssey/             ← Misión M2 (app Vite en JS puro)
+        ├── README.md
+        ├── index.html
+        ├── package.json
+        └── src/                  ← api.js, logic.js, render.js, main.js, style.css
 ```
 
 ## Detalle por proyecto
