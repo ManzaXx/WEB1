@@ -1,3 +1,4 @@
+import "./style.css";
 import { buscarPorIngrediente, obtenerReceta } from "./api.js";
 import { normalizarLista, agruparPorLetra, normalizarReceta } from "./logic.js";
 import {

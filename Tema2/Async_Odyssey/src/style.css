@@ -1,0 +1,144 @@
+:root {
+  --crema: #fbf5e9;
+  --papel: #fffdf7;
+  --tinta: #3b2f2a;
+  --terracota: #c4622d;
+  --oliva: #6b7a3a;
+  --borde: #e6d9bf;
+  --error: #a3261f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.6rem;
+  color: var(--terracota);
+}
+
+header p {
+  margin: 0.25rem 0 0;
+  font-style: italic;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+input {
+  padding: 0.6rem 0.8rem;
+  border: 2px solid var(--borde);
+  border-radius: 8px;
+  background: var(--papel);
+  font: inherit;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+form button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--oliva);
+  color: white;
+}
+
+.estado {
+  text-align: center;
+  font-style: italic;
+}
+
+.estado--error {
+  color: var(--error);
+  font-weight: bold;
+}
+
+.grupo h2 {
+  border-bottom: 2px dashed var(--borde);
+  color: var(--oliva);
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tarjeta {
+  padding: 0.5rem;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: var(--papel);
+  color: inherit;
+  text-align: center;
+}
+
+.tarjeta:hover {
+  border-color: var(--terracota);
+}
+
+.tarjeta img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.ficha {
+  padding: 1.5rem;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--papel);
+}
+
+.ficha img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 10px;
+}
+
+.ficha h3 {
+  color: var(--terracota);
+}
+
+.meta {
+  color: var(--oliva);
+  font-style: italic;
+}
+
+.volver {
+  margin-bottom: 1rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tinta);
+}
