@@ -42,3 +42,8 @@ export async function obtenerReceta(id) {
   const datos = await pedir(`${BASE}/lookup.php?i=${encodeURIComponent(id)}`);
   return datos.meals?.[0] ?? null;
 }
+
+export async function listarIngredientes() {
+  const datos = await pedir(`${BASE}/list.php?i=list`);
+  return datos.meals ?? [];
+}

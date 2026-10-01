@@ -80,3 +80,14 @@ export function pintarDetalle(receta) {
   );
   mostrar(ficha);
 }
+
+export function pintarSugerencias(nombres) {
+  const lista = document.querySelector("#ingredientes");
+  lista.replaceChildren(
+    ...nombres.map((nombre) => {
+      const opcion = document.createElement("option");
+      opcion.value = nombre;
+      return opcion;
+    }),
+  );
+}

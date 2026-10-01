@@ -35,3 +35,9 @@ export const normalizarReceta = (cruda) => {
     pasos,
   };
 };
+
+export const normalizarIngredientes = (crudos) =>
+  crudos
+    .map(({ strIngredient }) => strIngredient?.trim())
+    .filter(Boolean)
+    .sort((a, b) => a.localeCompare(b));

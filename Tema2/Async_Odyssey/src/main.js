@@ -1,12 +1,18 @@
 import "./style.css";
-import { buscarPorIngrediente, obtenerReceta } from "./api.js";
-import { normalizarLista, agruparPorLetra, normalizarReceta } from "./logic.js";
+import { buscarPorIngrediente, obtenerReceta, listarIngredientes } from "./api.js";
+import {
+  normalizarLista,
+  agruparPorLetra,
+  normalizarReceta,
+  normalizarIngredientes,
+} from "./logic.js";
 import {
   pintarCargando,
   pintarError,
   pintarVacio,
   pintarGrupos,
   pintarDetalle,
+  pintarSugerencias,
 } from "./render.js";
 
 const formulario = document.querySelector("#formulario");
@@ -29,6 +35,14 @@ async function buscar(ingrediente) {
   } catch (error) {
     console.error(error);
     pintarError("No se pudieron cargar las recetas. Revisa tu conexión e inténtalo de nuevo.");
+  }
+}
+
+async function cargarSugerencias() {
+  try {
+    pintarSugerencias(normalizarIngredientes(await listarIngredientes()));
+  } catch (error) {
+    console.warn("No se pudo cargar la lista de ingredientes", error);
   }
 }
 
@@ -67,3 +81,5 @@ resultado.addEventListener("click", (evento) => {
     pintarGrupos(ultimosGrupos);
   }
 });
+
+cargarSugerencias();
