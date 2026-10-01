@@ -8,7 +8,7 @@
 
 **Tech Stack:** Vite, JavaScript (módulos ES), `fetch`, `localStorage`, CSS. Node 24 / npm 11 disponibles.
 
-**Spec:** [docs/superpowers/specs/2026-10-01-async-odyssey-design.md](../specs/2026-10-01-async-odyssey-design.md)
+**Spec:** [docs/2026-10-01-async-odyssey-design.md](./2026-10-01-async-odyssey-design.md)
 
 ## Global Constraints
 

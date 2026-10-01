@@ -23,6 +23,7 @@ Abre la URL que imprime Vite (normalmente `http://localhost:5173`). Prueba `chic
 | `src/render.js` | Solo DOM: pinta cargando, error, vacío, la lista y el detalle con `createElement` y `textContent`. |
 | `src/main.js` | Conecta todo: eventos del formulario y de la lista → API → lógica → render, con `try/catch`. |
 | `src/style.css` | Tema «cocina». |
+| `docs/` | Diseño (spec) y plan de implementación que seguimos para construir la app. |
 
 ## Dónde se usa cada método de array
 
