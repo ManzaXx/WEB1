@@ -18,9 +18,9 @@ Abre la URL que imprime Vite (normalmente `http://localhost:5173`). Prueba `chic
 
 | Archivo | Responsabilidad |
 |---|---|
-| `src/api.js` | Solo red: `fetch`, `async/await`, comprobación de `response.ok` y caché en `localStorage`. |
+| `src/api.js` | Solo red: `fetch`, `async/await`, comprobación de `response.ok` y caché en `localStorage`. Incluye la lista de ingredientes disponibles. |
 | `src/logic.js` | Solo datos: `map`, `filter` y `reduce`. No toca el DOM ni la red. |
-| `src/render.js` | Solo DOM: pinta cargando, error, vacío, la lista y el detalle con `createElement` y `textContent`. |
+| `src/render.js` | Solo DOM: pinta cargando, error, vacío, la lista, el detalle y las sugerencias del buscador con `createElement` y `textContent`. |
 | `src/main.js` | Conecta todo: eventos del formulario y de la lista → API → lógica → render, con `try/catch`. |
 | `src/style.css` | Tema «cocina». |
 | `docs/` | Diseño (spec) y plan de implementación que seguimos para construir la app. |
@@ -29,6 +29,7 @@ Abre la URL que imprime Vite (normalmente `http://localhost:5173`). Prueba `chic
 
 - `map` en `normalizarLista`: de los campos de la API (`strMeal`, `strMealThumb`) a `{ id, nombre, imagen }`.
 - `filter` + `map` en `normalizarReceta`: la API da 20 campos `strIngredient1…20` y muchos vienen vacíos; se descartan los vacíos y se emparejan con su medida.
+- `map` + `filter` en `normalizarIngredientes`: de la lista de ingredientes de la API se sacan los nombres, se descartan los vacíos y se ordenan para las sugerencias del buscador.
 - `reduce` en `agruparPorLetra`: convierte la lista de recetas en un objeto `{ A: [...], B: [...] }`.
 
 ## Estados y errores
@@ -57,3 +58,5 @@ Usé Claude Code como pareja de programación para plantear, diseñar e implemen
 ## Autopsia
 
 Elegí Vite y JavaScript puro en vez de un framework como React o Vue, porque quería que la app fuera lo más simple posible para poder explicar claramente el flujo de datos y la separación de responsabilidades. Descarté agrupar por categoría porque eso requería muchas peticiones a la API, lo que complicaba el código y la experiencia del usuario. Aparte, me decanté por el estilo de cocina, que me parecía más atractivo visualmente y coherente con el tema de la app.
+
+Al probar la app con `curry` no salía nada, y me di cuenta de que la API no busca por texto sino por **nombre exacto** de ingrediente: tiene una lista cerrada de 992 y solo `Curry Powder` o `Thai Red Curry Paste` devuelven recetas, pero no `curry`. En vez de dejar al usuario adivinando, añadí un desplegable (`<datalist>`) en el buscador con esos 992 nombres, que se carga con una petición más (`list.php?i=list`, también con caché). Descarté dejar solo un mensaje de «sin resultados», porque no ayudaba a saber qué se puede buscar, y también descarté buscar yo por texto parcial, porque habría exigido pedir todos los ingredientes por separado y complicaba mucho el código. Si la lista no se puede cargar, la app sigue funcionando sin sugerencias.
