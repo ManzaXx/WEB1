@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nevera vacía</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Nevera vacía</h1>
+        <p>Dime qué ingrediente te sobra y te digo qué cocinar.</p>
+      </header>
+
+      <form id="formulario">
+        <label for="ingrediente">Ingrediente (en inglés)</label>
+        <input id="ingrediente" type="text" placeholder="chicken" autocomplete="off" />
+        <button type="submit">Buscar</button>
+      </form>
+
+      <section id="resultado" aria-live="polite">
+        <p class="estado">Escribe un ingrediente para empezar.</p>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

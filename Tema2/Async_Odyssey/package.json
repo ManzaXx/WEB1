@@ -1,0 +1,15 @@
+{
+  "name": "async-odyssey",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Nevera vacía: buscador de recetas con TheMealDB (Misión M2, Web Development I)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.3.2"
+  }
+}
