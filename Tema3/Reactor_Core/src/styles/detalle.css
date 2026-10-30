@@ -1,0 +1,176 @@
+/* Detalle de una receta dentro del <dialog> */
+/* ---------- Detalle (dialog) ---------- */
+.detalle {
+  width: min(100% - 1rem, 56rem);
+  max-height: calc(100dvh - 1rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  background: var(--papel);
+  color: var(--tinta);
+  box-shadow: 0 20px 60px rgb(59 47 42 / 0.35);
+}
+
+.detalle[open] {
+  animation: aparecer 200ms ease-out;
+}
+
+.detalle::backdrop {
+  background: rgb(59 47 42 / 0.55);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+.detalle__caja {
+  position: relative;
+  padding: 1rem;
+}
+
+.detalle__cerrar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: block;
+  width: var(--tactil);
+  height: var(--tactil);
+  margin-left: auto;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: var(--papel);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.ficha {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.ficha__foto {
+  width: 100%;
+  max-width: 22rem;
+  margin: 0 auto;
+  border-radius: var(--radio);
+}
+
+.ficha__texto h2 {
+  margin: 0;
+  color: var(--terracota);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+}
+
+.ficha__meta {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--oliva);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.ficha__texto h3 {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--terracota);
+}
+
+.ingredientes__resumen {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+.ingredientes__lista {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ingrediente {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+  padding: 0.45rem 0.7rem;
+  border-left: 4px solid var(--borde);
+  border-radius: 6px;
+  background: var(--crema);
+}
+
+.ingrediente--tienes {
+  border-left-color: var(--oliva);
+  background: var(--oliva-claro);
+}
+
+.ingrediente__nombre {
+  font-weight: 600;
+}
+
+.ingrediente__medida {
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+}
+
+.ingrediente__marca {
+  margin-left: auto;
+  color: var(--oliva);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.boton-secundario {
+  background: var(--terracota);
+}
+
+.ingredientes__copia {
+  min-height: 1.5em;
+  margin: 0.4rem 0 0;
+  color: var(--oliva);
+  font-size: 0.9rem;
+}
+
+.pasos {
+  margin: 0;
+  padding-left: 1.4rem;
+}
+
+.pasos li {
+  margin-bottom: 0.6rem;
+  max-width: 65ch;
+}
+
+.ficha__video {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 0;
+  font-weight: 600;
+}
+
+
+/* Pantallas grandes */
+@media (min-width: 48rem) {
+  .detalle__caja {
+    padding: 1.5rem 2rem 2rem;
+  }
+
+  .ficha {
+    grid-template-columns: minmax(0, 18rem) 1fr;
+    align-items: start;
+  }
+
+  .ficha__foto {
+    position: sticky;
+    top: 0;
+  }
+
+  .ingredientes__lista {
+    grid-template-columns: 1fr 1fr;
+  }
+}

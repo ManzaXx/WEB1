@@ -1,0 +1,117 @@
+/* Resultados: grupos, rejilla, tarjetas y botón de favorito */
+/* ---------- Resultados ---------- */
+.resumen {
+  margin: 0 0 0.5rem;
+  color: var(--tinta-suave);
+  text-align: center;
+}
+
+.grupo h2 {
+  margin: 1.5rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px dashed var(--borde);
+  color: var(--oliva);
+  font-size: 1.35rem;
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tarjeta {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--papel);
+  box-shadow: var(--sombra);
+}
+
+.tarjeta__abrir {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.tarjeta__abrir img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--borde);
+}
+
+.tarjeta__nombre {
+  display: block;
+  padding: 0.6rem 0.75rem 0.2rem;
+  font-family: var(--serif);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.tarjeta__usa {
+  margin: 0;
+  padding: 0 0.75rem 0.7rem;
+  color: var(--oliva);
+  font-size: 0.85rem;
+}
+
+.tarjeta .favorito {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+}
+
+@media (hover: hover) {
+  .tarjeta:hover {
+    border-color: var(--terracota);
+  }
+}
+
+/* ---------- Botón de favorito ---------- */
+.favorito {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: var(--tactil);
+  min-height: var(--tactil);
+  padding: 0 0.6rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: var(--papel);
+  color: var(--terracota);
+  font-weight: 600;
+}
+
+.favorito svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform 160ms ease-out;
+}
+
+.favorito[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+
+.favorito:active svg {
+  transform: scale(0.85);
+}
+
+
+/* Pantallas grandes */
+@media (min-width: 48rem) {
+  .rejilla {
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 1.25rem;
+  }
+}

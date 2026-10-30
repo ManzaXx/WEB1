@@ -1,0 +1,172 @@
+/* Puerta de la nevera: buscador, etiquetas de ingredientes y pestañas */
+/* ---------- Puerta de la nevera: buscador + ingredientes ---------- */
+.puerta {
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.25rem 1rem 2rem;
+  border: 1px solid var(--borde);
+  border-radius: 22px;
+  background: var(--papel);
+  box-shadow: var(--sombra);
+}
+
+/* El tirador de la puerta */
+.puerta::before {
+  content: "";
+  position: absolute;
+  top: 1.25rem;
+  bottom: 1.25rem;
+  left: 0.7rem;
+  width: 0.4rem;
+  border-radius: 999px;
+  background: var(--borde);
+}
+
+.buscador label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.buscador__fila {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.buscador input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--tactil);
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  background: var(--crema);
+  font: inherit;
+  font-size: 1rem; /* 16px: iOS no hace zoom al enfocar */
+}
+
+.buscador input[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.buscador button,
+.estado button,
+.boton-secundario {
+  min-height: var(--tactil);
+  padding: 0.5rem 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--oliva);
+  color: #fff;
+  font-weight: 600;
+}
+
+.buscador__aviso {
+  min-height: 1.5em;
+  margin: 0.3rem 0 0;
+  color: var(--error);
+  font-size: 0.9rem;
+}
+
+.nevera p {
+  margin: 0 0 0.5rem;
+  color: var(--tinta-suave);
+}
+
+.nevera__lista,
+.nevera__ejemplos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.etiqueta {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding-left: 0.9rem;
+  border-radius: 999px;
+  background: var(--oliva-claro);
+  color: var(--oliva);
+  font-weight: 600;
+}
+
+.etiqueta button {
+  width: var(--tactil);
+  height: var(--tactil);
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.nevera__ejemplos button {
+  min-height: var(--tactil);
+  padding: 0.4rem 1rem;
+  border: 1px dashed var(--oliva);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--oliva);
+}
+
+.nevera__vaciar {
+  min-height: var(--tactil);
+  margin-top: 0.5rem;
+  padding: 0 0.25rem;
+  border: none;
+  background: none;
+  color: var(--tinta-suave);
+  text-decoration: underline;
+}
+
+@media (hover: hover) {
+  .etiqueta button:hover {
+    background: rgb(93 107 47 / 0.15);
+  }
+
+  .nevera__ejemplos button:hover {
+    background: var(--oliva-claro);
+  }
+}
+
+/* ---------- Pestañas ---------- */
+.pestanas {
+  display: flex;
+  gap: 0.25rem;
+  width: fit-content;
+  margin: 0 auto 1.5rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: var(--borde);
+}
+
+.pestanas__boton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--tactil);
+  padding: 0 1.2rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  font-weight: 600;
+}
+
+.pestanas__boton[aria-pressed="true"] {
+  background: var(--papel);
+  box-shadow: var(--sombra);
+}
+
+.pestanas__contador {
+  min-width: 1.6rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--terracota-claro);
+  color: var(--terracota);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
