@@ -53,7 +53,8 @@ export function normalizarReceta(cruda, nevera = []) {
   const pasos = (cruda.strInstructions ?? "")
     .split(/\r?\n/)
     .map((paso) => paso.trim())
-    .filter((paso) => paso && !/^step\s*\d+$/i.test(paso));
+    .filter((paso) => paso && !/^step\s*\d+$/i.test(paso))
+    .map((texto, i) => ({ numero: i + 1, texto })); // el número de paso sirve de key
 
   return {
     id: cruda.idMeal,
@@ -61,7 +62,8 @@ export function normalizarReceta(cruda, nevera = []) {
     imagen: cruda.strMealThumb,
     categoria: cruda.strCategory,
     area: cruda.strArea,
-    video: cruda.strYoutube,
+    // solo enlaces https: nunca se pinta un href que venga raro de la API
+    video: cruda.strYoutube?.startsWith("https://") ? cruda.strYoutube : null,
     ingredientes,
     pasos,
   };

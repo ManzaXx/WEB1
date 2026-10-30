@@ -5,6 +5,7 @@ import Nevera from "./components/Nevera.jsx";
 import Pestanas from "./components/Pestanas.jsx";
 import Resultados from "./components/Resultados.jsx";
 import Favoritos from "./components/Favoritos.jsx";
+import Detalle from "./components/Detalle.jsx";
 
 // Componente raíz: aquí vive el estado que comparten varios componentes
 // (lifting state up) y se pasa hacia abajo por props.
@@ -12,6 +13,7 @@ export default function App() {
   const [nevera, setNevera] = useLocalStorage("nevera-react:ingredientes", []);
   const [favoritos, setFavoritos] = useLocalStorage("nevera-react:favoritos", []);
   const [vista, setVista] = useState("recetas");
+  const [recetaAbierta, setRecetaAbierta] = useState(null); // id de la receta o null
 
   // Derivado: se recalcula en cada render a partir de `favoritos`, no es estado
   const idsFavoritos = new Set(favoritos.map((favorita) => favorita.id));
@@ -29,8 +31,6 @@ export default function App() {
         : [...actual, { id, nombre, imagen }],
     );
   }
-
-  const abrirReceta = () => {}; // el detalle llega en la fase siguiente
 
   return (
     <div className="app">
@@ -56,18 +56,32 @@ export default function App() {
           <Resultados
             nevera={nevera}
             idsFavoritos={idsFavoritos}
-            onAbrir={abrirReceta}
+            onAbrir={setRecetaAbierta}
             onAlternarFavorito={alternarFavorito}
           />
         ) : (
           <Favoritos
             favoritos={favoritos}
             idsFavoritos={idsFavoritos}
-            onAbrir={abrirReceta}
+            onAbrir={setRecetaAbierta}
             onAlternarFavorito={alternarFavorito}
           />
         )}
       </main>
+
+      {recetaAbierta && (
+        <Detalle
+          id={recetaAbierta}
+          nevera={nevera}
+          esFavorita={idsFavoritos.has(recetaAbierta)}
+          onAlternarFavorito={alternarFavorito}
+          onCerrar={() => setRecetaAbierta(null)}
+        />
+      )}
+
+      <footer className="pie">
+        Recetas de <a href="https://www.themealdb.com/">TheMealDB</a>. Misión M3 · Reactor Core.
+      </footer>
     </div>
   );
 }
