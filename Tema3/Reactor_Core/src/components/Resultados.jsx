@@ -44,7 +44,7 @@ export default function Resultados({ nevera, idsFavoritos, onAbrir, onAlternarFa
     return (
       <Estado>
         Ninguna receta usa {nevera.join(", ")}. TheMealDB solo entiende nombres exactos en
-        inglés: elige uno de las sugerencias del buscador.
+        inglés: elige una de las sugerencias del buscador.
       </Estado>
     );
   }
