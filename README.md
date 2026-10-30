@@ -3,7 +3,9 @@
 Repositorio de las entregas de la asignatura **Web Development I** (3.º curso).
 Autor: Pablo Manzanedo.
 
-Todos los proyectos están hechos con **HTML, CSS y JavaScript puro**, sin frameworks. Los del Tema 1 se prueban abriendo su `index.html` en el navegador (o con Live Server); el del Tema 2 usa Vite como servidor de desarrollo (ver su README).
+Los proyectos de los Temas 1 y 2 están hechos con **HTML, CSS y JavaScript puro**, sin frameworks; el del Tema 3 usa **React 19**. Los del Tema 1 se prueban abriendo su `index.html` en el navegador (o con Live Server); los de los Temas 2 y 3 usan Vite como servidor de desarrollo (ver su README).
+
+Cada tema tiene además una carpeta **`misionesClase/`** con la lista de ejercicios y misiones de clase del tema, que se irán subiendo a medida que se hagan.
 
 ## Índice
 
@@ -12,6 +14,8 @@ Todos los proyectos están hechos con **HTML, CSS y JavaScript puro**, sin frame
 | Tema 1 | **Cyber Memory** — Misión M1 · El Despertar del DOM | [`Tema1/El_Despertar_del_DOM/`](Tema1/El_Despertar_del_DOM/) | Juego de memoria (8 parejas) con estética de terminal: contador de intentos, cronómetro, reinicio y modo oscuro con la tecla `M`. | [README de la misión](Tema1/El_Despertar_del_DOM/README.md) |
 | Tema 1 | **El oráculo de los números** | [`Tema1/Oraculo/`](Tema1/Oraculo/) | Ejercicio de adivinar un número secreto entre 1 y 100 con pistas «mayor/menor», validación de la entrada y contador de intentos. | — |
 | Tema 2 | **Nevera vacía** — Misión M2 · Async Odyssey | [`Tema2/Async_Odyssey/`](Tema2/Async_Odyssey/) | Buscador de recetas por ingrediente con TheMealDB: `fetch` + `async/await`, módulos ES, `map/filter/reduce`, estados de carga/error/vacío y caché en `localStorage`. App Vite en JS puro. | [README de la misión](Tema2/Async_Odyssey/README.md) |
+| Tema 3 | **Nevera vacía · React** — Misión M3 · Reactor Core | [`Tema3/Reactor_Core/`](Tema3/Reactor_Core/) | La nevera de la M2 en React 19 + Vite: llenas la nevera con hasta 5 ingredientes y salen primero las recetas que aprovechan más, con lista de la compra y favoritos. Custom hooks `useFetch` y `useLocalStorage`. | [README de la misión](Tema3/Reactor_Core/README.md) |
+| Temas 1-3 | **Misiones de clase** | [`Tema1/misionesClase/`](Tema1/misionesClase/), [`Tema2/misionesClase/`](Tema2/misionesClase/), [`Tema3/misionesClase/`](Tema3/misionesClase/) | Ejercicios propuestos y misiones de clase de cada tema, como lista para ir subiéndolos. | README de cada carpeta |
 
 ## Estructura del repositorio
 
@@ -24,16 +28,25 @@ WEB1/
 │   │   ├── index.html
 │   │   ├── styles.css
 │   │   └── app.js
-│   └── Oraculo/                   ← ejercicio de práctica
-│       ├── Index.html             ← incluye los estilos en <style>
-│       └── app.js
-└── Tema2/
-    └── Async_Odyssey/             ← Misión M2 (app Vite en JS puro)
-        ├── README.md
-        ├── index.html
-        ├── package.json
-        ├── docs/                 ← spec y plan de implementación
-        └── src/                  ← api.js, logic.js, render.js, main.js, style.css
+│   ├── Oraculo/                   ← ejercicio de práctica
+│   │   ├── Index.html             ← incluye los estilos en <style>
+│   │   └── app.js
+│   └── misionesClase/             ← ejercicios de clase del Tema 1
+├── Tema2/
+│   ├── Async_Odyssey/             ← Misión M2 (app Vite en JS puro)
+│   │   ├── README.md
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   ├── docs/                  ← spec y plan de implementación
+│   │   └── src/                   ← api.js, logic.js, render.js, main.js, style.css
+│   └── misionesClase/             ← ejercicios de clase del Tema 2
+└── Tema3/
+    ├── Reactor_Core/              ← Misión M3 (React 19 + Vite)
+    │   ├── README.md
+    │   ├── index.html
+    │   ├── package.json
+    │   └── src/                   ← App.jsx, components/, hooks/, api/, logic/, styles/
+    └── misionesClase/             ← ejercicios de clase del Tema 3
 ```
 
 ## Detalle por proyecto
@@ -59,9 +72,25 @@ WEB1/
 - **Uso de IA y autopsia:** están documentados en su [README](Tema2/Async_Odyssey/README.md), en los apartados «Uso de IA» y «Autopsia». El diseño y el plan de implementación están en [`docs/`](Tema2/Async_Odyssey/docs/).
 - **Historial:** el desarrollo por fases se puede seguir en los commits (Vite → API → lógica → render y estados → estilos → caché → README).
 
+### Tema 3 · Nevera vacía · React (M3 · Reactor Core)
+
+- **Archivos:** [`src/App.jsx`](Tema3/Reactor_Core/src/App.jsx) (estado compartido), 12 componentes en [`src/components/`](Tema3/Reactor_Core/src/components/), los custom hooks [`useFetch`](Tema3/Reactor_Core/src/hooks/useFetch.js) y [`useLocalStorage`](Tema3/Reactor_Core/src/hooks/useLocalStorage.js), la red en [`src/api/`](Tema3/Reactor_Core/src/api/) y la lógica pura en [`src/logic/recetas.js`](Tema3/Reactor_Core/src/logic/recetas.js).
+- **Qué hace:** con los ingredientes que tienes (hasta 5) pide a TheMealDB las recetas de cada uno en paralelo, las combina y las agrupa por cuántos de tus ingredientes usan. En el detalle marca lo que ya tienes y copia la lista de la compra con lo que falta. Favoritos y nevera se guardan en `localStorage`.
+- **Contenidos trabajados:** componentes pequeños con props y callbacks; estado mínimo levantado a `App` y todo lo demás derivado en el render; `useEffect` solo para sincronizar con la API, `localStorage`, el evento `storage` y `dialog.showModal()`, con `AbortController` y `removeEventListener` en la limpieza; listas con `key` estables; custom hooks (bonus).
+- **Mejoras respecto a la M2:** cancelación de peticiones, errores de red / HTTP / datos distinguidos, caché con caducidad en su propio módulo y foco devuelto al cerrar el detalle.
+- **Cómo probarlo:** `cd Tema3/Reactor_Core`, `npm install` y `npm run dev`.
+- **Uso de IA y autopsia:** en su [README](Tema3/Reactor_Core/README.md).
+- **Historial:** el desarrollo por fases se puede seguir en los commits (proyecto → red → lógica → hooks → componentes → detalle → estilos → README).
+
+### Misiones de clase
+
+Cada tema tiene una carpeta `misionesClase/` con un README que lista los ejercicios propuestos del tema y las misiones de clase (code review, boss fights, retos del cuaderno). Cada ejercicio se subirá en su propia subcarpeta y se marcará en la lista.
+
 ## Guía rápida para la corrección
 
 1. La entrega evaluable del Tema 1 es **[`Tema1/El_Despertar_del_DOM/`](Tema1/El_Despertar_del_DOM/)**; su README contiene la explicación completa, el uso de IA y la autopsia.
 2. [`Tema1/Oraculo/`](Tema1/Oraculo/) es un ejercicio de práctica previo.
 3. La entrega evaluable del Tema 2 es **[`Tema2/Async_Odyssey/`](Tema2/Async_Odyssey/)**; su README contiene la explicación, el uso de IA y la autopsia.
-4. Las nuevas entregas se irán añadiendo en carpetas `TemaN/` y en la tabla del índice.
+4. La entrega evaluable del Tema 3 es **[`Tema3/Reactor_Core/`](Tema3/Reactor_Core/)**; su README contiene los componentes, el estado, los efectos, el uso de IA y la autopsia.
+5. Las carpetas `TemaN/misionesClase/` son ejercicios de clase, no entregas de misión.
+6. Las nuevas entregas se irán añadiendo en carpetas `TemaN/` y en la tabla del índice.
