@@ -15,7 +15,9 @@ export default function App() {
   const [vista, setVista] = useState("recetas");
   const [recetaAbierta, setRecetaAbierta] = useState(null); // id de la receta o null
 
-  // Derivado: se recalcula en cada render a partir de `favoritos`, no es estado
+  // Derivado: se recalcula en cada render a partir de `favoritos`, no es estado.
+  // Sin useMemo a propósito: recorrer unas decenas de favoritos cuesta microsegundos
+  // y ningún hijo está memoizado (React.memo), así que una referencia estable no ahorra nada.
   const idsFavoritos = new Set(favoritos.map((favorita) => favorita.id));
 
   // Actualizaciones inmutables: siempre un array nuevo, nunca push ni splice
@@ -23,7 +25,7 @@ export default function App() {
   const quitarIngrediente = (ingrediente) =>
     setNevera((actual) => actual.filter((guardado) => guardado !== ingrediente));
 
-  // Solo se guarda lo necesario para pintar la tarjeta sin volver a pedirla
+  // Recibe solo { id, nombre, imagen }: lo justo para pintar la tarjeta sin volver a pedirla
   function alternarFavorito({ id, nombre, imagen }) {
     setFavoritos((actual) =>
       actual.some((favorita) => favorita.id === id)

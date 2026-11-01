@@ -3,7 +3,7 @@ import ListaIngredientes from "./ListaIngredientes.jsx";
 
 // Contenido de una receta ya cargada y normalizada. Solo pinta: no pide ni guarda nada.
 export default function FichaReceta({ receta, esFavorita, onAlternarFavorito }) {
-  const { nombre, imagen, categoria, area, video, ingredientes, pasos } = receta;
+  const { id, nombre, imagen, categoria, area, video, ingredientes, pasos } = receta;
   const meta = [categoria, area].filter(Boolean).join(" · ");
 
   return (
@@ -17,7 +17,7 @@ export default function FichaReceta({ receta, esFavorita, onAlternarFavorito }) 
         <BotonFavorito
           nombre={nombre}
           esFavorita={esFavorita}
-          onAlternar={() => onAlternarFavorito(receta)}
+          onAlternar={() => onAlternarFavorito({ id, nombre, imagen })}
           conTexto
         />
 
