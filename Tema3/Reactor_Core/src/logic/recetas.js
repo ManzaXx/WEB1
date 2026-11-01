@@ -1,5 +1,6 @@
 // Funciones puras: reciben datos y devuelven datos nuevos.
 // Ni React, ni DOM, ni red: se pueden probar en la consola sin montar nada.
+import { SUSTITUTOS } from "./sustitutos.js";
 
 export const MAX_INGREDIENTES = 5; // cada ingrediente es una petición a la API
 const CAMPOS_INGREDIENTE = 20; // TheMealDB trae strIngredient1…strIngredient20
@@ -37,6 +38,29 @@ export const agruparPorCoincidencias = (recetas) =>
     .map(([cantidad, grupo]) => ({ cantidad: Number(cantidad), recetas: grupo }))
     .toSorted((a, b) => b.cantidad - a.cantidad);
 
+// Añade a un ingrediente si lo tienes, si tienes algo que lo sustituye
+// (`sustituto`, de tu nevera) y, si no, qué podrías usar en su lugar (`alternativa`)
+export function marcarIngrediente(ingrediente, enNevera) {
+  const clave = normalizar(ingrediente.nombre);
+  const opciones = SUSTITUTOS[clave] ?? [];
+  const tienes = enNevera.has(clave);
+  return {
+    ...ingrediente,
+    enNevera: tienes,
+    sustituto: tienes ? null : (opciones.find((opcion) => enNevera.has(normalizar(opcion))) ?? null),
+    alternativa: opciones[0] ?? null,
+  };
+}
+
+// Porcentaje de la receta que puedes hacer con lo que tienes (ingredientes o sustitutos)
+export const porcentajeCubierto = (ingredientes) =>
+  ingredientes.length === 0
+    ? 0
+    : Math.round(
+        (ingredientes.filter(({ enNevera, sustituto }) => enNevera || sustituto).length * 100) /
+          ingredientes.length,
+      );
+
 // Recorre los campos por su número (1, 2, 3…) para no depender del orden de las claves
 export function normalizarReceta(cruda, nevera = []) {
   const enNevera = new Set(nevera.map(normalizar));
@@ -48,7 +72,7 @@ export function normalizarReceta(cruda, nevera = []) {
       medida: cruda[`strMeasure${numero}`]?.trim() ?? "",
     }))
     .filter(({ nombre }) => nombre)
-    .map((ingrediente) => ({ ...ingrediente, enNevera: enNevera.has(normalizar(ingrediente.nombre)) }));
+    .map((ingrediente) => marcarIngrediente(ingrediente, enNevera));
 
   const pasos = (cruda.strInstructions ?? "")
     .split(/\r?\n/)

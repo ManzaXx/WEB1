@@ -78,9 +78,46 @@
   color: var(--terracota);
 }
 
-.ingredientes__resumen {
-  margin: 0 0 0.75rem;
-  font-weight: 600;
+.cobertura {
+  margin-bottom: 0.9rem;
+}
+
+.cobertura__texto {
+  margin: 0 0 0.4rem;
+}
+
+.cobertura__texto strong {
+  color: var(--oliva);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* <meter> con los colores del tema (Chrome/Edge/Safari y Firefox) */
+.cobertura__barra {
+  display: block;
+  width: 100%;
+  height: 0.75rem;
+  border-radius: 999px;
+  background: var(--borde);
+  appearance: none;
+}
+
+.cobertura__barra::-webkit-meter-bar {
+  border: none;
+  border-radius: 999px;
+  background: var(--borde);
+}
+
+.cobertura__barra::-webkit-meter-optimum-value,
+.cobertura__barra::-webkit-meter-suboptimum-value,
+.cobertura__barra::-webkit-meter-even-less-good-value {
+  border-radius: 999px;
+  background: var(--oliva);
+}
+
+.cobertura__barra::-moz-meter-bar {
+  border-radius: 999px;
+  background: var(--oliva);
 }
 
 .ingredientes__lista {
@@ -123,6 +160,13 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.ingrediente__alternativa {
+  margin-left: auto;
+  color: var(--tinta-suave);
+  font-size: 0.85rem;
+  font-style: italic;
 }
 
 .boton-secundario {
