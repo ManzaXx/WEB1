@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Mismo tipo de dato (array con array, objeto con objeto…): protege de valores raros
 const mismoTipo = (a, b) => typeof a === typeof b && Array.isArray(a) === Array.isArray(b);
@@ -20,10 +20,19 @@ export function useLocalStorage(clave, inicial) {
   // Función inicializadora: localStorage solo se lee en el primer render
   const [valor, setValor] = useState(() => leer(clave, inicial));
 
-  // Sincronizar con un sistema externo (localStorage) es justo el trabajo de un efecto
+  // Texto del último valor que ya está reflejado en localStorage (o el valor por defecto).
+  // Es una ref y no estado porque cambiarlo no debe provocar ningún render
+  const ultimoTexto = useRef(null);
+  ultimoTexto.current ??= JSON.stringify(valor);
+
+  // Sincronizar con un sistema externo (localStorage) es justo el trabajo de un efecto.
+  // Solo escribe si el valor cambió: en el primer montaje no hay nada nuevo que guardar
   useEffect(() => {
+    const texto = JSON.stringify(valor);
+    if (texto === ultimoTexto.current) return;
+    ultimoTexto.current = texto;
     try {
-      localStorage.setItem(clave, JSON.stringify(valor));
+      localStorage.setItem(clave, texto);
     } catch {
       // sin espacio o bloqueado: la app sigue funcionando, solo que sin guardar
     }
