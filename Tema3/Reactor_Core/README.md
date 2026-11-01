@@ -2,7 +2,7 @@
 
 Misión M3 · Reactor Core — Web Development I.
 
-La «Nevera vacía» de la M2, rehecha en **React 19 con Vite** y con una idea nueva: ya no buscas por un ingrediente, sino que **llenas tu nevera** con hasta 5 ingredientes y la app te enseña qué puedes cocinar, **primero las recetas que aprovechan más cosas de las que tienes**. Al abrir una receta ves qué ingredientes ya tienes y puedes **copiar la lista de la compra** con lo que te falta. Las recetas que te gustan se guardan en **favoritos**. La nevera y los favoritos sobreviven a recargar la página.
+La «Nevera vacía» de la M2, rehecha en **React 19 con Vite** y con una idea nueva: ya no buscas por un ingrediente, sino que **llenas tu nevera** con hasta 5 ingredientes y la app te enseña qué puedes cocinar, **primero las recetas que aprovechan más cosas de las que tienes**. Al abrir una receta ves **qué porcentaje puedes hacer ya**, qué ingredientes tienes, cuáles puedes **sustituir** con algo de tu nevera (si falta mantequilla y tienes aceite de oliva, «usa tu Olive Oil») y puedes **copiar la lista de la compra** con lo que te falta. Las recetas que te gustan se guardan en **favoritos**. La nevera y los favoritos sobreviven a recargar la página.
 
 Datos de [TheMealDB](https://www.themealdb.com/api.php) (API pública, sin clave). Los nombres de los ingredientes van en inglés.
 
@@ -19,7 +19,8 @@ Abre la URL que imprime Vite (normalmente `http://localhost:5173`).
 - Pulsa `Chicken` en «prueba con» y añade `Rice`: arriba salen las recetas que usan los dos.
 - Abre una receta: los ingredientes que tienes salen marcados «en tu nevera» y el botón copia lo que falta.
 - `zzzz` enseña el estado vacío; modo offline en DevTools (Network → Offline) enseña el de error con «Reintentar».
-- `npm run lint` pasa el linter (oxlint con las reglas de hooks) sin avisos.
+- Añade `Chicken` y `Olive Oil` y abre «Chicken Alfredo Primavera»: la mantequilla sale como «usa tu Olive Oil» y cuenta para el porcentaje.
+- `npm test` pasa los 16 tests de la lógica pura (Vitest) y `npm run lint` pasa el linter (oxlint con las reglas de hooks) sin avisos.
 
 ## Componentes
 
@@ -28,27 +29,29 @@ App                      estado compartido: nevera, favoritos, vista y receta ab
 ├── Buscador             input controlado + sugerencias (datalist) + validación
 ├── Nevera               etiquetas de ingredientes, quitar, vaciar y ejemplos
 ├── Pestanas             Recetas / Favoritos (n)
-├── Resultados           pide las recetas y las agrupa por coincidencias
-│   └── RejillaRecetas
-│       └── TarjetaReceta
-│           └── BotonFavorito
+├── Resultados           pide las recetas y elige qué estado enseñar
+│   └── GruposRecetas    las pinta agrupadas por coincidencias
+│       └── RejillaRecetas
+│           └── TarjetaReceta
+│               └── BotonFavorito
 ├── Favoritos            recetas guardadas (sin pedir nada a la API)
 │   └── RejillaRecetas   (el mismo componente, reutilizado)
 ├── Detalle              <dialog> modal: pide una receta y gestiona sus estados
 │   └── FichaReceta
 │       ├── BotonFavorito (reutilizado, con texto)
-│       └── ListaIngredientes   «en tu nevera» + lista de la compra
+│       └── ListaIngredientes   porcentaje y lista de la compra
+│           └── Ingrediente      en tu nevera / usa tu sustituto / alternativa
 └── Estado               mensaje de cargando / error / vacío (lo usan Resultados, Favoritos y Detalle)
 ```
 
-Ningún fichero de JavaScript pasa de 90 líneas. Los componentes solo pintan y avisan al padre con callbacks (`onAnadir`, `onQuitar`, `onAbrir`, `onAlternarFavorito`, `onCerrar`); la red y los cálculos viven fuera de React:
+Ningún componente pasa de 90 líneas (el más largo es `App.jsx`). Los componentes solo pintan y avisan al padre con callbacks (`onAnadir`, `onQuitar`, `onAbrir`, `onAlternarFavorito`, `onCerrar`); la red y los cálculos viven fuera de React:
 
 | Carpeta | Qué hay | Responsabilidad |
 |---|---|---|
 | `src/api/` | `mealdb.js`, `cache.js` | Solo red: URLs, `fetch`, `response.ok`, errores con nombre (`ErrorHttp`, `ErrorDatos`) y caché con caducidad. |
-| `src/logic/` | `recetas.js` | Funciones puras (`map`, `filter`, `reduce`, `Object.groupBy`): combinar resultados, agrupar, normalizar, validar. |
+| `src/logic/` | `recetas.js`, `sustitutos.js`, `recetas.test.js` | Funciones puras (`map`, `filter`, `reduce`, `Object.groupBy`): combinar resultados, agrupar, normalizar, sustitutos, porcentaje y validar; con sus tests. |
 | `src/hooks/` | `useFetch.js`, `useLocalStorage.js` | Los dos custom hooks (bonus). |
-| `src/components/` | 12 componentes | Solo UI. |
+| `src/components/` | 14 componentes | Solo UI. |
 | `src/styles/` | 4 hojas | Base, nevera, recetas y detalle. |
 
 ## Estado: mínimo y derivado
@@ -64,7 +67,9 @@ Solo hay **cuatro** estados en `App` y dos pequeños dentro de componentes:
 | `texto`, `aviso` | `Buscador` | solo le importan al formulario |
 | `copia` | `ListaIngredientes` | mensaje de «copiado» |
 
-Todo lo demás **se calcula en el render**, nunca se guarda: `idsFavoritos` (un `Set` a partir de `favoritos`), la lista combinada y agrupada de recetas, los ingredientes que faltan, «tienes X de Y», el contador de favoritos y hasta `cargando` dentro de `useFetch`.
+Todo lo demás **se calcula en el render**, nunca se guarda: `idsFavoritos` (un `Set` a partir de `favoritos`), la lista combinada y agrupada de recetas, los ingredientes que faltan, el porcentaje, el contador de favoritos y hasta `cargando` dentro de `useFetch`.
+
+`idsFavoritos` se crea de nuevo en cada render **sin `useMemo` a propósito**: recorrer unas decenas de favoritos cuesta microsegundos y ningún hijo está envuelto en `React.memo`, así que mantener la misma referencia no evitaría ningún render. Memoizar ahí sería añadir código sin un problema medido (y el React Compiler ya lo hace solo).
 
 Todas las actualizaciones son inmutables: `[...actual, x]`, `filter`, `map` y `toSorted`; nunca `push`, `splice` ni `sort` sobre el estado. Las que dependen del valor anterior usan la función actualizadora (`setNevera((actual) => …)`).
 
@@ -75,9 +80,9 @@ Hay **cuatro** `useEffect` en toda la app, y todos sincronizan con algo de fuera
 | Efecto | Sistema externo | Dependencias | Limpieza |
 |---|---|---|---|
 | `useFetch` | la API (red) | `[clave, intento]` | `controlador.abort()`: cancela la petición vieja si cambian las URLs o se desmonta, y además se ignora su respuesta (`signal.aborted`), así nunca pisa a la nueva |
-| `useLocalStorage` (guardar) | `localStorage` | `[clave, valor]` | no hace falta: `setItem` es instantáneo y no deja nada abierto |
+| `useLocalStorage` (guardar) | `localStorage` | `[clave, valor]` | no hace falta: `setItem` es instantáneo y no deja nada abierto. Una `ref` con el último texto guardado evita escribir en el primer montaje o si el valor no cambió |
 | `useLocalStorage` (escuchar) | evento `storage` de otras pestañas | `[clave]` | `removeEventListener` |
-| `Detalle` | `dialog.showModal()` (API del DOM) | `[]` | no hace falta: al cerrar, el `<dialog>` se desmonta |
+| `Detalle` | `dialog.showModal()` (API del DOM) | `[]` | no hace falta: al cerrar, el `<dialog>` se desmonta. Con guarda: solo abre si el nodo existe y no está abierto ya |
 
 Lo que **no** es un efecto: filtrar o agrupar recetas (se calcula en el render), añadir un ingrediente o copiar la lista (va en el manejador del evento).
 
@@ -89,7 +94,7 @@ Lo que **no** es un efecto: filtrar o agrupar recetas (se calcula en el render),
 - Ingredientes de la nevera: `key={normalizar(ingrediente)}`, único porque `validarIngrediente` no deja repetir.
 - Grupos: `key={cantidad}`; ingredientes de una receta: `key={posicion}` (su número 1-20 en la API); pasos: `key={numero}`.
 - Ningún `key={index}`.
-- Condicionales: `if` con `return` temprano para los estados de `Resultados`, `Nevera`, `Favoritos` y `ListaIngredientes`; ternario solo para elegir entre dos cosas; `&&` siempre con una condición booleana (`length > 0`), nunca con un número suelto.
+- Condicionales: `if` con `return` temprano para los estados de `Resultados`, `Nevera`, `Favoritos` y `ListaIngredientes`; `if / else if` antes del `return` cuando hay que elegir un solo contenido (`Detalle`, `Ingrediente`); ternario solo para elegir entre dos cosas; `&&` siempre con una condición booleana (`length > 0`), nunca con un número suelto.
 
 ## Custom hooks (bonus)
 
@@ -109,6 +114,23 @@ Lo que **no** es un efecto: filtrar o agrupar recetas (se calcula en el render),
 | Foco al volver del detalle | el `<dialog>` nativo devuelve el foco a la tarjeta al cerrarse |
 | Originalidad: «combinar ingredientes o favoritos» | las dos cosas, más la lista de la compra |
 
+## Tests
+
+`npm test` lanza **16 tests con Vitest** sobre `src/logic/recetas.js`: combinar sin repetir ni mutar las listas, agrupar de más a menos, ordenar los ingredientes por su número, sustitutos, porcentaje (sin dividir entre cero), pasos numerados, enlaces que no son `https`, sugerencias sin repetidos y las tres validaciones del buscador. Se testea la lógica pura porque es donde están las reglas y no necesita navegador ni red.
+
+## Qué cambié tras la corrección de la M3 (96/100)
+
+| La Arena dijo | Cómo está ahora |
+|---|---|
+| `Resultados` mezcla petición, estados y agrupación | `Resultados` pide y elige el estado; `GruposRecetas` pinta los grupos |
+| Se pasa la receta entera a `onAlternarFavorito` | las tarjetas y la ficha pasan solo `{ id, nombre, imagen }` |
+| `useLocalStorage` escribe en el primer montaje | una `ref` con el último texto guardado: solo escribe si el valor cambia |
+| `showModal()` asume que el ref existe | guarda `if (nodo && !nodo.open)` y `dialogo.current?.close()` |
+| `&&` encadenados en `Detalle` | un `if / else if` elige el contenido antes del `return` |
+| `idsFavoritos` se recrea en cada render | explicado arriba por qué no lleva `useMemo` |
+| Sin pruebas de `logic/` | 16 tests con Vitest |
+| Originalidad: «porcentajes de coincidencia o ingredientes sustitutivos» | las dos: barra `<meter>` con el % y sustitutos con lo que hay en tu nevera |
+
 ## Accesibilidad y detalles
 
 Etiqueta en el input, `aria-invalid` y aviso con `role="status"`; errores con `role="alert"`; botones de icono con `aria-label`; `aria-pressed` en pestañas y favoritos; foco visible; objetivos táctiles de 44&nbsp;px; `prefers-reduced-motion`; sin scroll horizontal a 375&nbsp;px.
@@ -125,7 +147,7 @@ A partir de ahí la IA propuso el diseño (combinar ingredientes, favoritos y li
 
 **Qué hizo la IA y qué decidí yo.** El código lo generó la IA; no lo escribí a mano. Yo elegí seguir con la nevera en vez del reto del cuaderno, pedí que fuese lo más sencillo posible y que arreglase lo que la Arena me quitó en la M2. Después revisé cada fichero hasta poder explicarlo: dónde vive cada estado, por qué cada efecto tiene esas dependencias y qué hace su limpieza.
 
-**Cómo lo verifiqué.** Con la app abierta en el navegador probamos: añadir `Chicken` y `Rice` (salen primero las que usan los dos), un ingrediente repetido (aviso), `zzzz` (estado vacío), errores simulados de red, HTTP 503 y datos con forma rara (sale el mensaje correcto de cada uno y «Reintentar» recupera), abrir y cerrar el detalle con Escape (el foco vuelve a la tarjeta), guardar un favorito y recargar (sigue ahí), la vista de favoritos, y el ancho de móvil de 375&nbsp;px sin scroll horizontal. `npm run lint` y `npm run build` pasan sin avisos y la consola queda limpia.
+**Cómo lo verifiqué.** Con la app abierta en el navegador probamos: añadir `Chicken` y `Rice` (salen primero las que usan los dos), `Chicken` y `Olive Oil` (la mantequilla se marca «usa tu Olive Oil» y sube el porcentaje), que al cargar la página no se escribe nada en `localStorage`, un ingrediente repetido (aviso), `zzzz` (estado vacío), errores simulados de red, HTTP 503 y datos con forma rara (sale el mensaje correcto de cada uno y «Reintentar» recupera), abrir y cerrar el detalle con Escape (el foco vuelve a la tarjeta), guardar un favorito y recargar (sigue ahí), la vista de favoritos, y el ancho de móvil de 375&nbsp;px sin scroll horizontal. `npm test`, `npm run lint` y `npm run build` pasan sin avisos y la consola queda limpia. Después de la primera corrección (96/100) le pasé a la IA el feedback de la Arena y le pedí que arreglase cada punto con el cambio más pequeño posible.
 
 ## Autopsia
 
@@ -133,4 +155,4 @@ A partir de ahí la IA propuso el diseño (combinar ingredientes, favoritos y li
 
 **2. `cargando` no es estado: se deduce.** En `useFetch` no hay `useState(cargando)`. Guardo el resultado junto con la clave (las URLs) que lo produjo, y `cargando` es «hay URLs y el resultado guardado no es de estas». **Descarté** lo típico, tres `useState` (`datos`, `error`, `cargando`) con `setCargando(true)` al principio del efecto, porque duplica información (cargando, datos y error pueden contradecirse) y hace un render extra solo para poner el «cargando». Lo malo de mi forma es que hay que pararse a explicarla; por eso tiene comentarios.
 
-**Otras decisiones que defiendo:** `<dialog>` nativo para el detalle en vez de cambiar de vista como en la M2 (Escape, foco atrapado y foco devuelto a la tarjeta sin código mío); props en vez de `useContext` para los favoritos, porque solo bajan dos niveles y así se ve de dónde viene cada dato; y un máximo de 5 ingredientes (`MAX_INGREDIENTES`) para no saturar la API.
+**Otras decisiones que defiendo:** `<dialog>` nativo para el detalle en vez de cambiar de vista como en la M2 (Escape, foco atrapado y foco devuelto a la tarjeta sin código mío); props en vez de `useContext` para los favoritos, porque solo bajan dos niveles y así se ve de dónde viene cada dato; un máximo de 5 ingredientes (`MAX_INGREDIENTES`) para no saturar la API; y los sustitutos como una lista corta hecha a mano (`sustitutos.js`) en vez de pedirlos a otra API, porque TheMealDB no los da y una lista pequeña de cambios seguros es fácil de revisar.
