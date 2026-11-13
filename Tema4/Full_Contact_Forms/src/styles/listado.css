@@ -1,0 +1,145 @@
+/* Listado de recetas de la comunidad */
+.listado__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.listado__refresco {
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.filtro__opcion {
+  min-height: var(--tactil);
+  padding: 0 0.9rem;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 999px;
+  background: var(--papel);
+  transition: background-color 150ms ease-out;
+}
+
+.filtro__opcion:hover {
+  background: var(--terracota-claro);
+}
+
+.filtro__opcion[aria-pressed="true"] {
+  border-color: var(--terracota);
+  background: var(--terracota);
+  color: var(--papel);
+  font-weight: 700;
+}
+
+.listado__rejilla {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tarjeta {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem;
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--terracota);
+  border-radius: var(--radio-pequeno);
+  background: #fff;
+}
+
+.tarjeta__cabecera {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.tarjeta h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  overflow-wrap: anywhere;
+}
+
+.tarjeta__meta,
+.tarjeta__autor {
+  margin: 0;
+  color: var(--tinta-suave);
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.tarjeta__autor {
+  font-style: italic;
+}
+
+.tarjeta__detalle summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--tactil);
+  color: var(--terracota);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tarjeta__detalle ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.tarjeta__detalle p {
+  margin: 0.5rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+.tarjeta__cantidad {
+  color: var(--tinta-suave);
+}
+
+.tarjeta .boton--peligro {
+  justify-self: end;
+}
+
+.etiqueta {
+  flex: none;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.etiqueta--vegana {
+  background: var(--oliva-claro);
+  color: var(--oliva);
+}
+
+/* Aviso del bonus: recetas corruptas descartadas por Zod */
+.corruptas {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--error);
+  border-radius: var(--radio-pequeno);
+  background: var(--error-claro);
+  color: var(--error);
+}
+
+.corruptas summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.corruptas ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  overflow-wrap: anywhere;
+}

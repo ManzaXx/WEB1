@@ -1,0 +1,219 @@
+/* Formulario de publicar receta */
+.formulario form {
+  display: grid;
+  gap: 1rem;
+}
+
+.formulario__fila {
+  display: grid;
+  gap: 1rem;
+}
+
+.campo {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.campo__etiqueta {
+  padding: 0;
+  font-weight: 700;
+}
+
+.campo input:not([type="radio"], [type="checkbox"]),
+.campo select,
+.campo textarea {
+  width: 100%;
+  min-height: var(--tactil);
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-pequeno);
+  background: #fff;
+  font-size: 1rem; /* 16px: iOS no hace zoom al enfocar */
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.campo [aria-invalid="true"] {
+  border-color: var(--error);
+  background: var(--error-claro);
+}
+
+.campo__error {
+  margin: 0;
+  color: var(--error);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.campo__error::before {
+  content: "⚠ ";
+}
+
+/* Dificultad: radios como pastillas */
+.opciones__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.opcion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: var(--tactil);
+  padding: 0 0.9rem;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 999px;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.opcion:has(:checked) {
+  border-color: var(--terracota);
+  background: var(--terracota-claro);
+  font-weight: 700;
+}
+
+.opciones[aria-invalid="true"] .opcion {
+  border-color: var(--error);
+}
+
+.opcion input,
+.casilla input {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  accent-color: var(--terracota);
+}
+
+.casilla {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--tactil);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Ingredientes (field array) */
+.ingredientes__cuenta {
+  margin-left: 0.4rem;
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.ingredientes__lista {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ingrediente {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.ingrediente__campos {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ingrediente__campos input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ingredientes .ingrediente__cantidad {
+  flex: 0 0 6.5rem;
+}
+
+.ingredientes > .boton {
+  justify-self: start;
+}
+
+/* Vista previa en vivo */
+.previa {
+  padding: 1rem;
+  border: 1px dashed var(--borde-fuerte);
+  border-radius: var(--radio);
+  background: var(--crema);
+}
+
+.previa__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.previa h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-family: var(--sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.previa__progreso {
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.previa__barra {
+  width: 100%;
+  height: 0.6rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.previa__nombre {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  overflow-wrap: anywhere;
+}
+
+.previa__meta,
+.previa__ingredientes {
+  margin: 0.25rem 0 0;
+  color: var(--tinta-suave);
+  overflow-wrap: anywhere;
+}
+
+.formulario__resumen {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radio-pequeno);
+  background: var(--error-claro);
+  color: var(--error);
+  font-weight: 700;
+}
+
+.formulario__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (min-width: 36rem) {
+  .formulario__fila {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formulario__fila--numeros {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+  }
+}

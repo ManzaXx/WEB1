@@ -1,0 +1,263 @@
+/* Tokens, reset y piezas comunes. Tema «cocina» heredado de la Nevera (M2 y M3). Mobile-first. */
+:root {
+  --crema: #fbf5e9;
+  --papel: #fffdf7;
+  --tinta: #3b2f2a;
+  --tinta-suave: #6e5f55;
+  --terracota: #b5521f;
+  --terracota-oscuro: #8f3f16;
+  --terracota-claro: #f6e1d3;
+  --oliva: #5d6b2f;
+  --oliva-claro: #e9edd8;
+  --borde: #e6d9bf;
+  --borde-fuerte: #b9a88a;
+  --error: #a3261f;
+  --error-claro: #fbe4e1;
+  --sombra: 0 1px 2px rgb(59 47 42 / 0.08), 0 4px 14px rgb(59 47 42 / 0.06);
+  --radio: 14px;
+  --radio-pequeno: 8px;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --tactil: 2.75rem; /* 44px: tamaño mínimo de un objetivo táctil */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 3px solid var(--terracota);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.app {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+/* ---------- Cabecera y pie ---------- */
+.cabecera {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.cabecera h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: var(--terracota);
+}
+
+.cabecera p {
+  margin: 0.25rem 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--tinta-suave);
+}
+
+.pie {
+  margin-top: 3rem;
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ---------- Paneles: formulario y listado ---------- */
+.pantalla {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.panel {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--papel);
+  box-shadow: var(--sombra);
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+/* ---------- Botones ---------- */
+.boton {
+  min-height: var(--tactil);
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 999px;
+  background: var(--papel);
+  font-weight: 600;
+  transition: background-color 150ms ease-out, transform 100ms ease-out;
+}
+
+.boton:hover:not(:disabled) {
+  background: var(--terracota-claro);
+}
+
+.boton:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.boton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.boton--principal {
+  border-color: var(--terracota);
+  background: var(--terracota);
+  color: var(--papel);
+}
+
+.boton--principal:hover:not(:disabled) {
+  background: var(--terracota-oscuro);
+}
+
+.boton--secundario {
+  border-style: dashed;
+}
+
+.boton--peligro {
+  border-color: transparent;
+  background: transparent;
+  color: var(--error);
+}
+
+.boton--peligro:hover:not(:disabled) {
+  background: var(--error-claro);
+}
+
+.boton--icono {
+  flex: none;
+  width: var(--tactil);
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ---------- Avisos y estados ---------- */
+.aviso {
+  margin: 0.75rem 0 0;
+  font-weight: 600;
+}
+
+.aviso:empty {
+  display: none;
+}
+
+.aviso--exito {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radio-pequeno);
+  background: var(--oliva-claro);
+  color: var(--oliva);
+}
+
+.aviso--error {
+  color: var(--error);
+}
+
+.estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  font-family: var(--serif);
+  font-style: italic;
+  text-align: center;
+}
+
+.estado p {
+  max-width: 30rem;
+  margin: 0;
+}
+
+.estado--error {
+  color: var(--error);
+  font-weight: 700;
+}
+
+.estado__girador {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--borde);
+  border-top-color: var(--terracota);
+  border-radius: 50%;
+  animation: girar 800ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pantallas grandes: formulario y listado lado a lado */
+@media (min-width: 62rem) {
+  .app {
+    padding-top: 2.5rem;
+  }
+
+  .pantalla {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  .panel {
+    padding: 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
