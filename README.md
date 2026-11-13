@@ -3,7 +3,7 @@
 Repositorio de las entregas de la asignatura **Web Development I** (3.º curso).
 Autor: Pablo Manzanedo.
 
-Los proyectos de los Temas 1 y 2 están hechos con **HTML, CSS y JavaScript puro**, sin frameworks; el del Tema 3 usa **React 19**. Los del Tema 1 se prueban abriendo su `index.html` en el navegador (o con Live Server); los de los Temas 2 y 3 usan Vite como servidor de desarrollo (ver su README).
+Los proyectos de los Temas 1 y 2 están hechos con **HTML, CSS y JavaScript puro**, sin frameworks; los de los Temas 3 y 4 usan **React 19** (el del Tema 4, además, React Hook Form, Zod y TanStack Query). Los del Tema 1 se prueban abriendo su `index.html` en el navegador (o con Live Server); los de los Temas 2, 3 y 4 usan Vite como servidor de desarrollo (ver su README); el del Tema 4 necesita además su API local (`npm run api`).
 
 Cada tema tiene además una carpeta **`misionesClase/`** con la lista de ejercicios y misiones de clase del tema, que se irán subiendo a medida que se hagan.
 
@@ -15,7 +15,8 @@ Cada tema tiene además una carpeta **`misionesClase/`** con la lista de ejercic
 | Tema 1 | **El oráculo de los números** | [`Tema1/Oraculo/`](Tema1/Oraculo/) | Ejercicio de adivinar un número secreto entre 1 y 100 con pistas «mayor/menor», validación de la entrada y contador de intentos. | — |
 | Tema 2 | **Nevera vacía** — Misión M2 · Async Odyssey | [`Tema2/Async_Odyssey/`](Tema2/Async_Odyssey/) | Buscador de recetas por ingrediente con TheMealDB: `fetch` + `async/await`, módulos ES, `map/filter/reduce`, estados de carga/error/vacío y caché en `localStorage`. App Vite en JS puro. | [README de la misión](Tema2/Async_Odyssey/README.md) |
 | Tema 3 | **Nevera vacía · React** — Misión M3 · Reactor Core | [`Tema3/Reactor_Core/`](Tema3/Reactor_Core/) | La nevera de la M2 en React 19 + Vite: llenas la nevera con hasta 5 ingredientes y salen primero las recetas que aprovechan más, con % de la receta, sustitutos, lista de la compra y favoritos. Custom hooks `useFetch` y `useLocalStorage` y tests con Vitest. | [README de la misión](Tema3/Reactor_Core/README.md) |
-| Temas 1-3 | **Misiones de clase** | [`Tema1/misionesClase/`](Tema1/misionesClase/), [`Tema2/misionesClase/`](Tema2/misionesClase/), [`Tema3/misionesClase/`](Tema3/misionesClase/) | Ejercicios propuestos y misiones de clase de cada tema, como lista para ir subiéndolos. | README de cada carpeta |
+| Tema 4 | **Recetario de la Nevera** — Misión M4 · Full Contact Forms | [`Tema4/Full_Contact_Forms/`](Tema4/Full_Contact_Forms/) | Publica recetas con un formulario no controlado (React Hook Form) validado por un esquema Zod con refinamientos (vegana, fácil ≤ 45 min, sin repetidos) y listado de la comunidad con TanStack Query (filtros, invalidación, borrado). La respuesta del API también se valida con Zod y atrapa una receta corrupta (bonus). | [README de la misión](Tema4/Full_Contact_Forms/README.md) |
+| Temas 1-4 | **Misiones de clase** | [`Tema1/misionesClase/`](Tema1/misionesClase/), [`Tema2/misionesClase/`](Tema2/misionesClase/), [`Tema3/misionesClase/`](Tema3/misionesClase/), [`Tema4/misionesClase/`](Tema4/misionesClase/) | Ejercicios propuestos y misiones de clase de cada tema, como lista para ir subiéndolos. | README de cada carpeta |
 
 ## Estructura del repositorio
 
@@ -40,13 +41,21 @@ WEB1/
 │   │   ├── docs/                  ← spec y plan de implementación
 │   │   └── src/                   ← api.js, logic.js, render.js, main.js, style.css
 │   └── misionesClase/             ← ejercicios de clase del Tema 2
-└── Tema3/
-    ├── Reactor_Core/              ← Misión M3 (React 19 + Vite)
+├── Tema3/
+│   ├── Reactor_Core/              ← Misión M3 (React 19 + Vite)
+│   │   ├── README.md
+│   │   ├── index.html
+│   │   ├── package.json
+│   │   └── src/                   ← App.jsx, components/, hooks/, api/, logic/, styles/
+│   └── misionesClase/             ← ejercicios de clase del Tema 3
+└── Tema4/
+    ├── Full_Contact_Forms/        ← Misión M4 (React + RHF + Zod + TanStack Query)
     │   ├── README.md
-    │   ├── index.html
+    │   ├── .env.example           ← VITE_API_URL (el .env real no se sube)
+    │   ├── api/semilla.json       ← datos de json-server, con una receta corrupta a propósito
     │   ├── package.json
-    │   └── src/                   ← App.jsx, components/, hooks/, api/, logic/, styles/
-    └── misionesClase/             ← ejercicios de clase del Tema 3
+    │   └── src/                   ← schemas/, services/, queries/, components/, logic/, styles/
+    └── misionesClase/             ← ejercicios de clase del Tema 4
 ```
 
 ## Detalle por proyecto
@@ -82,6 +91,15 @@ WEB1/
 - **Uso de IA y autopsia:** en su [README](Tema3/Reactor_Core/README.md).
 - **Historial:** el desarrollo por fases se puede seguir en los commits (proyecto → red → lógica → hooks → componentes → detalle → estilos → README).
 
+### Tema 4 · Recetario de la Nevera (M4 · Full Contact Forms)
+
+- **Archivos:** el esquema Zod en [`src/schemas/receta.js`](Tema4/Full_Contact_Forms/src/schemas/receta.js), la capa de servicios en [`src/services/`](Tema4/Full_Contact_Forms/src/services/), los hooks de TanStack Query en [`src/queries/recetas.js`](Tema4/Full_Contact_Forms/src/queries/recetas.js), el formulario en [`src/components/FormularioReceta.jsx`](Tema4/Full_Contact_Forms/src/components/FormularioReceta.jsx) y el listado en [`src/components/Listado.jsx`](Tema4/Full_Contact_Forms/src/components/Listado.jsx).
+- **Qué hace:** publicas una receta (nombre, autor, categoría, dificultad, raciones, minutos, vegana, ingredientes dinámicos y pasos) y aparece en el listado de la comunidad, que se filtra por categoría y deja borrar. Vista previa en vivo con los campos que ya están listos y sugerencias de ingredientes de la comunidad.
+- **Contenidos trabajados:** formulario no controlado con `register`, `useFieldArray` y `useWatch` (sin `Controller`); un único esquema Zod con mensajes propios, `superRefine`/`refine` con `path` y `when`, conectado con `zodResolver`; `useQuery` con una fábrica de claves jerárquicas, `useMutation` con `invalidateQueries`, `AbortSignal` y reintentos con criterio; estados de carga, refresco, error, vacío y éxito; `safeParse` de la respuesta del API (bonus); `.env` con `.env.example`; 17 tests con Vitest.
+- **Cómo probarlo:** `cd Tema4/Full_Contact_Forms`, `npm install`, copiar `.env.example` como `.env`, `npm run api` en una terminal y `npm run dev` en otra.
+- **Uso de IA y autopsia:** en su [README](Tema4/Full_Contact_Forms/README.md), que también explica qué se aplicó de la corrección de la M3.
+- **Historial:** el desarrollo por fases se puede seguir en los commits (proyecto → esquema Zod → servicios y queries → formulario → listado → estilos → ajustes → README).
+
 ### Misiones de clase
 
 Cada tema tiene una carpeta `misionesClase/` con un README que lista los ejercicios propuestos del tema y las misiones de clase (code review, boss fights, retos del cuaderno). Cada ejercicio se subirá en su propia subcarpeta y se marcará en la lista.
@@ -92,5 +110,6 @@ Cada tema tiene una carpeta `misionesClase/` con un README que lista los ejercic
 2. [`Tema1/Oraculo/`](Tema1/Oraculo/) es un ejercicio de práctica previo.
 3. La entrega evaluable del Tema 2 es **[`Tema2/Async_Odyssey/`](Tema2/Async_Odyssey/)**; su README contiene la explicación, el uso de IA y la autopsia.
 4. La entrega evaluable del Tema 3 es **[`Tema3/Reactor_Core/`](Tema3/Reactor_Core/)**; su README contiene los componentes, el estado, los efectos, el uso de IA y la autopsia.
-5. Las carpetas `TemaN/misionesClase/` son ejercicios de clase, no entregas de misión.
-6. Las nuevas entregas se irán añadiendo en carpetas `TemaN/` y en la tabla del índice.
+5. La entrega evaluable del Tema 4 es **[`Tema4/Full_Contact_Forms/`](Tema4/Full_Contact_Forms/)**; su README contiene el formulario, el esquema Zod, las queries, el bonus, el uso de IA y la autopsia.
+6. Las carpetas `TemaN/misionesClase/` son ejercicios de clase, no entregas de misión.
+7. Las nuevas entregas se irán añadiendo en carpetas `TemaN/` y en la tabla del índice.
