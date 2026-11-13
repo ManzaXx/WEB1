@@ -1,10 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { ingredientesUsados, normalizar } from "./texto.js";
+import { formatearMinutos, ingredientesUsados, normalizar } from "./texto.js";
 import { palabraAnimal } from "./vegano.js";
 
 describe("normalizar", () => {
   it("quita tildes, mayúsculas y espacios de más", () => {
     expect(normalizar("  Pimentón   DULCE ")).toBe("pimenton dulce");
+  });
+});
+
+describe("formatearMinutos", () => {
+  it("pasa a horas solo cuando hace falta", () => {
+    expect(formatearMinutos(40)).toBe("40 min");
+    expect(formatearMinutos(60)).toBe("1 h");
+    expect(formatearMinutos(75)).toBe("1 h 15 min");
   });
 });
 
