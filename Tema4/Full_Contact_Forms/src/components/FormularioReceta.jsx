@@ -11,6 +11,8 @@ import VistaPrevia from "./VistaPrevia.jsx";
 // Formulario NO controlado: los inputs nativos usan register (sin Controller ni useState por campo).
 // Toda la validación la hace Zod a través de zodResolver; el HTML lleva noValidate.
 export default function FormularioReceta() {
+  // deps: las reglas que cruzan campos (fácil ↔ minutos, vegana ↔ ingredientes) se vuelven a
+  // comprobar al cambiar el otro campo; sin deps, RHF solo revalida el campo que cambia.
   const {
     register,
     control,
@@ -73,7 +75,7 @@ export default function FormularioReceta() {
             <div className="opciones__lista">
               {DIFICULTADES.map((dificultad) => (
                 <label key={dificultad} className="opcion">
-                  <input type="radio" value={dificultad} {...register("dificultad")} />
+                  <input type="radio" value={dificultad} {...register("dificultad", { deps: ["minutos"] })} />
                   {dificultad}
                 </label>
               ))}
@@ -90,7 +92,7 @@ export default function FormularioReceta() {
             <input type="number" inputMode="numeric" {...ariaDeCampo("minutos", errors.minutos)} {...register("minutos", { valueAsNumber: true })} />
           </Campo>
           <label className="casilla">
-            <input type="checkbox" {...register("vegana")} />
+            <input type="checkbox" {...register("vegana", { deps: ["ingredientes"] })} />
             Receta vegana
           </label>
         </div>
