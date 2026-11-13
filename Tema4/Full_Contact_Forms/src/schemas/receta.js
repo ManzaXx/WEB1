@@ -14,11 +14,13 @@ export const MAX_MINUTOS_FACIL = 45;
 export const MIN_PASOS = 30;
 
 // Texto obligatorio con mensajes propios. trim() va antes: «   » cuenta como vacío.
+// min(1) va primero para que un campo vacío diga «Escribe…» y uno corto diga cuánto falta.
 const texto = (campo, min, max) =>
   z
     .string({ error: `Escribe ${campo}` })
     .trim()
-    .min(min, min === 1 ? `Escribe ${campo}` : `${capitalizar(campo)}: al menos ${min} caracteres`)
+    .min(1, `Escribe ${campo}`)
+    .min(min, `${capitalizar(campo)}: al menos ${min} caracteres`)
     .max(max, `${capitalizar(campo)}: como mucho ${max} caracteres`);
 
 // Los inputs numéricos se registran con valueAsNumber: vacío llega como NaN y Zod lo rechaza con este mensaje.
@@ -41,7 +43,7 @@ const esquemaIngrediente = z.object({
 // Refinamiento de la lista: ningún ingrediente repetido (sin contar mayúsculas ni tildes).
 // El error se pone en el campo repetido, no en la lista, para que se vea al lado del input.
 const esquemaIngredientes = z
-  .array(esquemaIngrediente)
+  .array(esquemaIngrediente, { error: "Faltan los ingredientes" })
   .min(MIN_INGREDIENTES, `Una receta necesita al menos ${MIN_INGREDIENTES} ingredientes`)
   .max(MAX_INGREDIENTES, `Como mucho ${MAX_INGREDIENTES} ingredientes`)
   .superRefine((ingredientes, contexto) => {

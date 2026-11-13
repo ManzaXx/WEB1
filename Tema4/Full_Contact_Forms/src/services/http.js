@@ -44,7 +44,7 @@ export function mensajeDeError(error) {
   }
   if (error instanceof ErrorDatos || error instanceof ErrorConfiguracion) return error.message;
   if (error instanceof TypeError) {
-    return "No hay conexión con el servidor de recetas. ¿Está lanzado `npm run api`?";
+    return "No hay conexión con el servidor de recetas. ¿Está lanzado «npm run api»?";
   }
   return "Algo ha ido mal. Prueba otra vez.";
 }

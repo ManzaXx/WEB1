@@ -11,16 +11,14 @@ describe("validarLista (respuesta del API)", () => {
     expect(recetas).toHaveLength(4);
     expect(descartadas).toHaveLength(1);
     expect(descartadas[0].id).toBe("5");
-    // Cinco problemas distintos en el mismo registro, todos con su ruta
-    expect(descartadas[0].problemas).toEqual(
-      expect.arrayContaining([
-        expect.stringMatching(/^autor:/),
-        expect.stringMatching(/^categoria:/),
-        expect.stringMatching(/^raciones:/),
-        expect.stringMatching(/^ingredientes:/),
-        expect.stringMatching(/^creada:/),
-      ]),
-    );
+    // Cinco campos mal en el mismo registro, uno por línea y con su mensaje propio
+    expect(descartadas[0].problemas).toEqual([
+      "autor: Escribe tu nombre o alias",
+      "categoria: Elige una categoría",
+      "raciones: Escribe las raciones con números",
+      "ingredientes: Faltan los ingredientes",
+      "creada: La fecha de creación no es una fecha ISO",
+    ]);
   });
 
   it("ordena las válidas de la más nueva a la más vieja", () => {

@@ -25,12 +25,20 @@ export function validarLista(datos) {
     .toSorted((a, b) => b.creada.localeCompare(a.creada));
   const descartadas = resultados
     .filter(({ resultado }) => !resultado.success)
-    .map(({ dato, resultado }) => ({
-      id: String(dato?.id ?? "sin id"),
-      problemas: resultado.error.issues.map((problema) => `${problema.path.join(".") || "receta"}: ${problema.message}`),
-    }));
+    .map(({ dato, resultado }) => ({ id: String(dato?.id ?? "sin id"), problemas: describirProblemas(resultado.error) }));
 
   return { recetas, descartadas };
+}
+
+// «raciones: Escribe las raciones con números». Solo el primer problema de cada campo,
+// igual que en el formulario (un texto vacío también es «demasiado corto»: no se repite).
+function describirProblemas(error) {
+  const porCampo = new Map();
+  for (const problema of error.issues) {
+    const campo = problema.path.join(".") || "receta";
+    if (!porCampo.has(campo)) porCampo.set(campo, `${campo}: ${problema.message}`);
+  }
+  return [...porCampo.values()];
 }
 
 export async function listarRecetas({ categoria = TODAS, signal } = {}) {

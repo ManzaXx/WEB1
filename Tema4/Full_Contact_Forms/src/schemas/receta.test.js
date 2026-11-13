@@ -16,9 +16,12 @@ const valida = {
   pasos: "Tritura todo con aceite, vinagre y sal, cuela y deja enfriar en la nevera.",
 };
 
-// Los mensajes de un resultado de safeParse, indexados por ruta («ingredientes.1.nombre»)
+// El primer mensaje de cada ruta («ingredientes.1.nombre»), que es el que enseña el formulario.
+// Se recorre al revés porque en fromEntries gana la última entrada repetida.
 function errores(resultado) {
-  return Object.fromEntries(resultado.error.issues.map((problema) => [problema.path.join("."), problema.message]));
+  return Object.fromEntries(
+    resultado.error.issues.toReversed().map((problema) => [problema.path.join("."), problema.message]),
+  );
 }
 
 describe("esquemaReceta", () => {
@@ -29,9 +32,10 @@ describe("esquemaReceta", () => {
   });
 
   it("da mensajes propios en español", () => {
-    const resultado = esquemaReceta.safeParse({ ...valida, nombre: " ", categoria: "", minutos: Number.NaN });
+    const resultado = esquemaReceta.safeParse({ ...valida, nombre: " ", autor: "L", categoria: "", minutos: Number.NaN });
     expect(errores(resultado)).toMatchObject({
-      nombre: "El nombre de la receta: al menos 3 caracteres",
+      nombre: "Escribe el nombre de la receta",
+      autor: "Tu nombre o alias: al menos 2 caracteres",
       categoria: "Elige una categoría",
       minutos: "Escribe los minutos con números",
     });
