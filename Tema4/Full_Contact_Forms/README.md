@@ -22,7 +22,7 @@ Qué probar:
 
 - **Publicar vacío**: salen los 9 errores en español, el foco va al primer campo mal y un aviso dice cuántos campos revisar.
 - **Vegana con «Leche entera»**: «Lleva leche: no es vegano…» debajo de ese ingrediente. Con «Leche de avena» pasa.
-- **Dificultad «fácil» con 60 minutos**: el error sale en los minutos; al cambiar a «media» desaparece solo.
+- **Dificultad «fácil» con 60 minutos**: el error sale en los minutos; al cambiar a «media» desaparece solo (`deps`). Igual con «vegana»: al desmarcarla se quita el error del ingrediente.
 - **Dos veces «Tomate»** (o «tomate» y «TOMATE»): el segundo dice que ya está en la lista.
 - **Publicar bien**: el botón pasa a «Publicando…», sale «“…” ya está publicada», el formulario se vacía y la receta aparece arriba del listado sin recargar.
 - **Ctrl + Enter** en «Cómo se hace» publica.
@@ -73,7 +73,8 @@ App
 - `mode: "onTouched"`: no se grita mientras escribes por primera vez. El error sale al salir del campo y, a partir de ahí, se actualiza mientras lo corriges.
 - `handleSubmit` solo llama a la mutación si Zod da el visto bueno, y le pasa los datos ya limpios (`trim` aplicado). RHF lleva el foco al primer campo con error.
 - Tras publicar, `reset()` vuelve a `RECETA_VACIA`. Si falla, no se resetea: no pierdes lo escrito.
-- **Errores accesibles**: cada campo tiene su `<label>`, `aria-invalid` y `aria-describedby` apuntando a su mensaje (`ariaDeCampo`). La dificultad es un `fieldset` con `legend` y `role="radiogroup"`. El aviso «Revisa los N campos marcados» lleva `role="alert"`. El HTML lleva `noValidate` para que valide solo Zod, con sus mensajes, y no el navegador.
+- **Errores accesibles**, los cuatro detalles de la U4: cada campo tiene su `<label>` unido al `id`, `aria-invalid`, `aria-describedby` apuntando a su mensaje (`ariaDeCampo`) y el mensaje lleva `role="alert"` para que se anuncie en cuanto aparece (`MensajeError`). La dificultad es un `fieldset` con `legend` y `role="radiogroup"`. El aviso «Revisa los N campos marcados» también lleva `role="alert"`.
+- **Revalidar campos que dependen entre sí**: tras el primer envío, RHF solo revalida el campo que cambia. Por eso la dificultad se registra con `deps: ["minutos"]` y «vegana» con `deps: ["ingredientes"]`. Así, al pasar de «fácil» a «media» o desmarcar «vegana», el error del otro campo desaparece sin volver a enviar. El HTML lleva `noValidate` para que valide solo Zod, con sus mensajes, y no el navegador.
 
 ## Zod: el esquema es la única fuente de verdad
 
@@ -162,6 +163,15 @@ La semilla trae la receta con id `5` rota a propósito: sin autor, categoría «
 | Clave de `useFetch` «ingeniosa» (`urls.join(" ")`) | ya no hay `useFetch`: claves de TanStack Query explícitas con una fábrica |
 | `Detalle` mezclaba petición, modal y contenido | red en `services/`, caché en `queries/`, estado de envío en `EstadoEnvio`, elección del contenido en `ContenidoListado` |
 | Originalidad: «algo inesperado» | reglas de cocina en el esquema, vista previa con progreso y sugerencias desde la caché |
+
+## Qué cambié tras leer los apuntes de la U4
+
+Después de la primera entrega repasé la app con el PDF de la unidad y añadí dos cosas que pide:
+
+| Los apuntes dicen | Cómo está ahora |
+|---|---|
+| Errores accesibles: `label`, `aria-invalid`, `aria-describedby` **y `role="alert"` en el mensaje** (pág. 13) | los mensajes de cada campo llevan `role="alert"`; antes solo lo llevaban el aviso general y el error de envío |
+| Tras el primer envío RHF solo revalida el campo que cambia; las dependencias se declaran con `deps` (pág. 9) | `dificultad` con `deps: ["minutos"]` y `vegana` con `deps: ["ingredientes"]` |
 
 ## Tests
 
