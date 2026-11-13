@@ -1,0 +1,91 @@
+{
+  "recetas": [
+    {
+      "id": "1",
+      "nombre": "Lentejas estofadas",
+      "autor": "Carmen",
+      "categoria": "Principal",
+      "dificultad": "media",
+      "raciones": 4,
+      "minutos": 60,
+      "vegana": true,
+      "ingredientes": [
+        { "nombre": "Lentejas pardinas", "cantidad": "300 g" },
+        { "nombre": "Zanahoria", "cantidad": "2" },
+        { "nombre": "Patata", "cantidad": "1 grande" },
+        { "nombre": "Pimentón dulce", "cantidad": "1 cucharadita" },
+        { "nombre": "Aceite de oliva", "cantidad": "2 cucharadas" }
+      ],
+      "pasos": "Sofríe la zanahoria picada en el aceite, añade el pimentón y las lentejas lavadas, cubre con agua y deja 40 minutos a fuego lento. Añade la patata en trozos los últimos 20 minutos.",
+      "creada": "2026-11-08T10:15:00.000Z"
+    },
+    {
+      "id": "2",
+      "nombre": "Tostada de aguacate y tomate",
+      "autor": "Leo",
+      "categoria": "Desayuno",
+      "dificultad": "fácil",
+      "raciones": 1,
+      "minutos": 10,
+      "vegana": true,
+      "ingredientes": [
+        { "nombre": "Pan de hogaza", "cantidad": "2 rebanadas" },
+        { "nombre": "Aguacate", "cantidad": "1" },
+        { "nombre": "Tomate", "cantidad": "1" },
+        { "nombre": "Sal en escamas", "cantidad": "una pizca" }
+      ],
+      "pasos": "Tuesta el pan, aplasta el aguacate con un tenedor y extiéndelo. Pon el tomate en rodajas encima y termina con la sal.",
+      "creada": "2026-11-09T08:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "nombre": "Arroz con leche",
+      "autor": "Carmen",
+      "categoria": "Postre",
+      "dificultad": "media",
+      "raciones": 6,
+      "minutos": 50,
+      "vegana": false,
+      "ingredientes": [
+        { "nombre": "Arroz redondo", "cantidad": "150 g" },
+        { "nombre": "Leche entera", "cantidad": "1 l" },
+        { "nombre": "Azúcar", "cantidad": "120 g" },
+        { "nombre": "Canela en rama", "cantidad": "1" },
+        { "nombre": "Piel de limón", "cantidad": "1 tira" }
+      ],
+      "pasos": "Calienta la leche con la canela y la piel de limón. Añade el arroz y remueve a fuego suave 40 minutos. Agrega el azúcar al final y deja enfriar.",
+      "creada": "2026-11-10T17:45:00.000Z"
+    },
+    {
+      "id": "4",
+      "nombre": "Pollo al ajillo",
+      "autor": "Marta",
+      "categoria": "Principal",
+      "dificultad": "media",
+      "raciones": 4,
+      "minutos": 40,
+      "vegana": false,
+      "ingredientes": [
+        { "nombre": "Muslos de pollo", "cantidad": "8" },
+        { "nombre": "Ajo", "cantidad": "1 cabeza" },
+        { "nombre": "Vino blanco", "cantidad": "100 ml" },
+        { "nombre": "Aceite de oliva", "cantidad": "4 cucharadas" }
+      ],
+      "pasos": "Dora el pollo salpimentado en el aceite, añade los ajos laminados y, cuando se doren, el vino. Tapa y deja 25 minutos a fuego medio.",
+      "creada": "2026-11-11T13:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "nombre": "Tortilla misteriosa",
+      "autor": "",
+      "categoria": "Cena",
+      "dificultad": "fácil",
+      "raciones": "muchas",
+      "minutos": 20,
+      "vegana": false,
+      "ingredientes": null,
+      "pasos": "Dato corrupto a propósito para demostrar que Zod lo atrapa.",
+      "creada": "ayer"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+# Dependencias y build
+node_modules
+dist
+
+# Variables de entorno: solo se sube .env.example
+.env
+.env.*
+!.env.example
+
+# Base de datos local de json-server (se crea copiando api/semilla.json)
+api/db.json
+
+# Logs y editores
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
