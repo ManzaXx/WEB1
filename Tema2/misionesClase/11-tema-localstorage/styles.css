@@ -1,0 +1,16 @@
+body {
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Tema oscuro: basta con redefinir las variables del tema compartido */
+body.oscuro {
+  --fondo: #14171c;
+  --papel: #1d2128;
+  --tinta: #e6edf3;
+  --tinta-suave: #9da7b3;
+  --acento-suave: #1f3a30;
+  --borde: #39414c;
+  color-scheme: dark;
+  background: var(--fondo);
+  color: var(--tinta);
+}

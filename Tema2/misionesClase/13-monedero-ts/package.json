@@ -1,0 +1,13 @@
+{
+  "name": "13-monedero-ts",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Ejercicio 13 del Tema 2: el monedero del ejercicio 05 con tipos de TypeScript",
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "~7.0.2"
+  }
+}
