@@ -47,7 +47,7 @@ export default function Ej08TanStackQuery() {
         <ul>
           <li>Del efecto con tres estados se pasa a una llamada a <code>useQuery</code>; <code>isPending</code>, <code>isError</code> y <code>data</code> los da la librería.</li>
           <li>Los dos componentes piden <code>["posts"]</code> y en F12 → Network solo aparece una petición a <code>/posts</code>.</li>
-          <li>Además trae caché (30 s de <code>staleTime</code>), reintentos y recarga al volver a la pestaña, que en el 07 habría que programar.</li>
+          <li>Además trae caché, reintentos y recarga al volver a la pestaña, que en el 07 habría que programar.</li>
         </ul>
       </section>
     </div>

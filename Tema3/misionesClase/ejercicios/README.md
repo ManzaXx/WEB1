@@ -1,6 +1,6 @@
 # Ejercicios de clase · Tema 3 (React Core)
 
-Los 10 ejercicios propuestos de la U4 de React Core en un único proyecto Vite + React 19. Cada ejercicio es un componente de [`src/ejercicios/`](src/ejercicios/) y [`src/App.jsx`](src/App.jsx) tiene un menú para abrirlos (el ejercicio abierto queda en la URL, por ejemplo `#06`).
+Los 10 ejercicios propuestos de los apuntes del Tema 3 (React Core) en un único proyecto Vite + React 19. Cada ejercicio es un componente de [`src/ejercicios/`](src/ejercicios/) y [`src/App.jsx`](src/App.jsx) tiene un menú para abrirlos.
 
 ```bash
 npm install

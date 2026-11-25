@@ -1,6 +1,6 @@
 # Ejercicios de clase · Tema 4 (Formularios y peticiones HTTP)
 
-Los 12 ejercicios propuestos de la U4 (apuntes, págs. 37-39) en un único proyecto Vite + React 19 con React Hook Form, Zod, TanStack Query, react-select y DOMPurify. Cada ejercicio es un componente de [`src/ejercicios/`](src/ejercicios/), y [`src/App.jsx`](src/App.jsx) tiene un menú para abrirlos (el abierto queda en la URL, por ejemplo `#06`).
+Los 12 ejercicios propuestos de la U4 (apuntes, págs. 37-39) en un único proyecto Vite + React 19 con React Hook Form, Zod, TanStack Query, react-select y DOMPurify. Cada ejercicio es un componente de [`src/ejercicios/`](src/ejercicios/), y [`src/App.jsx`](src/App.jsx) tiene un menú para abrirlos.
 
 ```bash
 npm install

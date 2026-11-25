@@ -24,21 +24,10 @@ const EJERCICIOS = [
   { id: "10", titulo: "Refactor anti-efecto", Componente: Ej10AntiEfecto },
 ];
 
-// El ejercicio abierto se guarda en el hash de la URL (#06) para poder enlazarlo o recargar sin perderlo
-function idInicial() {
-  const id = window.location.hash.slice(1);
-  return EJERCICIOS.some((e) => e.id === id) ? id : "01";
-}
-
 export default function App() {
-  const [actual, setActual] = useState(idInicial);
+  const [actual, setActual] = useState("01");
   const ejercicio = EJERCICIOS.find((e) => e.id === actual);
   const { Componente } = ejercicio;
-
-  function abrir(id) {
-    setActual(id);
-    window.location.hash = id; // se cambia en el manejador del clic, no hace falta un efecto
-  }
 
   return (
     <div className="app">
@@ -53,7 +42,7 @@ export default function App() {
             <li key={e.id}>
               <button
                 type="button"
-                onClick={() => abrir(e.id)}
+                onClick={() => setActual(e.id)}
                 aria-current={e.id === actual ? "page" : undefined}
               >
                 <span className="menu__num">{e.id}</span> {e.titulo}

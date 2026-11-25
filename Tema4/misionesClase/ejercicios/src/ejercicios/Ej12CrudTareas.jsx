@@ -88,11 +88,10 @@ function ListaTareas() {
             type="button"
             className="peligro"
             onClick={() => borrar.mutate(t.id)}
-            // Solo se desactiva el botón de la tarea que se está borrando
-            disabled={borrar.isPending && borrar.variables === t.id}
+            disabled={borrar.isPending}
             aria-label={`Borrar «${t.titulo}»`}
           >
-            {borrar.isPending && borrar.variables === t.id ? "Borrando…" : "Borrar"}
+            Borrar
           </button>
         </li>
       ))}
