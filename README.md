@@ -5,7 +5,7 @@ Autor: Pablo Manzanedo.
 
 Los proyectos de los Temas 1 y 2 están hechos con **HTML, CSS y JavaScript puro**, sin frameworks; los de los Temas 3 y 4 usan **React 19** (el del Tema 4, además, React Hook Form, Zod y TanStack Query). Los del Tema 1 se prueban abriendo su `index.html` en el navegador (o con Live Server); los de los Temas 2, 3 y 4 usan Vite como servidor de desarrollo (ver su README); el del Tema 4 necesita además su API local (`npm run api`).
 
-Cada tema tiene además una carpeta **`misionesClase/`** con la lista de ejercicios y misiones de clase del tema, que se irán subiendo a medida que se hagan.
+Cada tema tiene además una carpeta **`misionesClase/`** con los ejercicios propuestos de sus apuntes ya resueltos, y su README marca cuáles están hechos.
 
 ## Índice
 
@@ -16,7 +16,7 @@ Cada tema tiene además una carpeta **`misionesClase/`** con la lista de ejercic
 | Tema 2 | **Nevera vacía** — Misión M2 · Async Odyssey | [`Tema2/Async_Odyssey/`](Tema2/Async_Odyssey/) | Buscador de recetas por ingrediente con TheMealDB: `fetch` + `async/await`, módulos ES, `map/filter/reduce`, estados de carga/error/vacío y caché en `localStorage`. App Vite en JS puro. | [README de la misión](Tema2/Async_Odyssey/README.md) |
 | Tema 3 | **Nevera vacía · React** — Misión M3 · Reactor Core | [`Tema3/Reactor_Core/`](Tema3/Reactor_Core/) | La nevera de la M2 en React 19 + Vite: llenas la nevera con hasta 5 ingredientes y salen primero las recetas que aprovechan más, con % de la receta, sustitutos, lista de la compra y favoritos. Custom hooks `useFetch` y `useLocalStorage` y tests con Vitest. | [README de la misión](Tema3/Reactor_Core/README.md) |
 | Tema 4 | **Recetario de la Nevera** — Misión M4 · Full Contact Forms | [`Tema4/Full_Contact_Forms/`](Tema4/Full_Contact_Forms/) | Publica recetas con un formulario no controlado (React Hook Form) validado por un esquema Zod con refinamientos (vegana, fácil ≤ 45 min, sin repetidos) y listado de la comunidad con TanStack Query (filtros, invalidación, borrado). La respuesta del API también se valida con Zod y atrapa una receta corrupta (bonus). | [README de la misión](Tema4/Full_Contact_Forms/README.md) |
-| Temas 1-4 | **Misiones de clase** | [`Tema1/misionesClase/`](Tema1/misionesClase/), [`Tema2/misionesClase/`](Tema2/misionesClase/), [`Tema3/misionesClase/`](Tema3/misionesClase/), [`Tema4/misionesClase/`](Tema4/misionesClase/) | Ejercicios propuestos y misiones de clase de cada tema, como lista para ir subiéndolos. | README de cada carpeta |
+| Temas 1-4 | **Misiones de clase** | [`Tema1/misionesClase/`](Tema1/misionesClase/), [`Tema2/misionesClase/`](Tema2/misionesClase/), [`Tema3/misionesClase/`](Tema3/misionesClase/), [`Tema4/misionesClase/`](Tema4/misionesClase/) | Los ejercicios propuestos de los apuntes de cada tema, resueltos: Temas 1 y 2 en HTML + JS (uno por carpeta; el 12 y el 13 del Tema 2 con Vite y TypeScript) y Temas 3 y 4 en un proyecto Vite + React con un componente por ejercicio. | README de cada carpeta |
 
 ## Estructura del repositorio
 
