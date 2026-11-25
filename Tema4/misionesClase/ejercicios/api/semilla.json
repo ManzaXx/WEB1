@@ -1,0 +1,7 @@
+{
+  "tareas": [
+    { "id": "1", "titulo": "Repasar React Hook Form", "hecha": true },
+    { "id": "2", "titulo": "Validar la respuesta del API con Zod", "hecha": false },
+    { "id": "3", "titulo": "Probar el formulario solo con el teclado", "hecha": false }
+  ]
+}
