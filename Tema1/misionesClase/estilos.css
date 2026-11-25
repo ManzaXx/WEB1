@@ -1,0 +1,125 @@
+/* Estilos compartidos por todos los ejercicios de clase del Tema 1.
+   Cada index.html la enlaza con ../estilos.css (ruta relativa: funciona abriendo el fichero desde el disco). */
+
+:root {
+  --fondo: #f6f4ef;
+  --papel: #ffffff;
+  --tinta: #1f2328;
+  --tinta-suave: #57606a;
+  --acento: #0b6e4f;
+  --acento-suave: #e3f1ea;
+  --error: #b42318;
+  --borde: #d8d4cc;
+  --radio: 0.5rem;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  --texto: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--texto);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--tinta);
+  background: var(--fondo);
+}
+
+main {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+  margin: 0 0 0.25rem;
+}
+
+.enunciado {
+  color: var(--tinta-suave);
+  margin: 0 0 1.5rem;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: var(--acento-suave);
+  padding: 0.05em 0.3em;
+  border-radius: 0.25rem;
+}
+
+/* Bloque donde los ejercicios de consola también pintan su salida */
+.salida {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  background: var(--tinta);
+  color: #e6edf3;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radio);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  min-height: 3rem;
+  margin: 0;
+}
+
+.nota {
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+  border-left: 3px solid var(--borde);
+  padding-left: 0.75rem;
+}
+
+button {
+  font: inherit;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--acento);
+  border-radius: var(--radio);
+  background: var(--acento);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 100ms ease;
+}
+
+button:hover {
+  background: #095a41;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #f2b705;
+  outline-offset: 2px;
+}
+
+input {
+  font: inherit;
+  font-size: 1rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  width: 100%;
+  max-width: 24rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

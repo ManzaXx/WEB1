@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 13 · Las tres capas de un botón «Me gusta» · Tema 1</title>
+  <link rel="stylesheet" href="../estilos.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Ejercicio 13 · Las tres capas</h1>
+    <p class="enunciado">Un botón «Me gusta» con cada capa en su fichero. La explicación está en el <code>README.md</code> de esta carpeta.</p>
+
+    <article class="publicacion">
+      <p>Hoy por fin entendí qué es un closure.</p>
+      <!-- Capa HTML: un formulario real. Sin JavaScript, el botón envía el formulario
+           a /me-gusta y el servidor registraría el voto (mejora progresiva). -->
+      <form class="me-gusta" action="/me-gusta" method="post">
+        <input type="hidden" name="publicacion" value="42">
+        <button type="submit" id="boton-me-gusta" aria-pressed="false">
+          <span aria-hidden="true">♥</span> Me gusta
+        </button>
+        <span id="contador-me-gusta" class="contador">12</span>
+      </form>
+    </article>
+  </main>
+</body>
+</html>

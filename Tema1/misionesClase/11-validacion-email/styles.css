@@ -1,0 +1,12 @@
+.estado {
+  font-weight: 600;
+  color: var(--tinta-suave);
+}
+
+.estado.valido {
+  color: var(--acento);
+}
+
+.estado.invalido {
+  color: var(--error);
+}

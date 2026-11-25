@@ -1,0 +1,32 @@
+/* Capa CSS: solo aspecto. El estado "me gusta" se lee del atributo aria-pressed,
+   así el mismo atributo sirve para el lector de pantalla y para el estilo. */
+
+.publicacion {
+  background: var(--papel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1rem 1.25rem;
+}
+
+.me-gusta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.me-gusta button {
+  background: var(--papel);
+  color: var(--tinta);
+  border-color: var(--borde);
+}
+
+.me-gusta button[aria-pressed="true"] {
+  background: #fde8ea;
+  color: #b3122e;
+  border-color: #b3122e;
+}
+
+.contador {
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta-suave);
+}

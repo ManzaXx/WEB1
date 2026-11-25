@@ -1,0 +1,10 @@
+#titulo {
+  transition: color 200ms ease;
+}
+
+/* Clase que añade JavaScript al pulsar el botón */
+.destacado {
+  color: var(--acento);
+  text-decoration: underline wavy var(--acento) 2px;
+  text-underline-offset: 0.3em;
+}
